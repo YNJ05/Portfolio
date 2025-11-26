@@ -1,6 +1,6 @@
 import { Project, Experience, Skill } from './types';
 
-export const PROFILE_IMAGE = "https://github.com/YNJ05.png"; // Replace with your image URL
+export const PROFILE_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQG5oyd-wpIWvg/profile-displayphoto-crop_800_800/B4EZn0.UjyHgAI-/0/1760751603330?e=1766016000&v=beta&t=QVyQXbpiDZEHV_-L09zvKBwh55O64vXn9NXmtc5Dxpo"; // Replace with your image URL
 
 export const RESUME_CONTENT = `
 Yassin NAJMI

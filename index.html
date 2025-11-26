@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yassin Najmi | Cloud & IoT Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: '#0d0d0d', // Deep black
+              surface: '#1a1a1a', // Charcoal
+              primary: '#00d9ff', // Electric Cyan
+              secondary: '#a855f7', // Neon Purple
+              accent: '#ff0a54', // Crimson Red
+              text: '#e5e5e5',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Orbitron', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            animation: {
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glitch': 'glitch 1s linear infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'scan': 'scan 4s linear infinite',
+            },
+            keyframes: {
+              glitch: {
+                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                '62%': { transform: 'translate(0,0) skew(5deg)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              scan: {
+                '0%': { backgroundPosition: '0% 0%' },
+                '100%': { backgroundPosition: '0% 100%' },
+              }
+            },
+            backgroundImage: {
+              'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",
+            }
+          },
+        },
+      };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: #0d0d0d;
+        color: #e5e5e5;
+      }
+      h1, h2, h3, h4, .font-display { font-family: 'Orbitron', sans-serif; }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #0d0d0d; }
+      ::-webkit-scrollbar-thumb { background: #00d9ff; border-radius: 0px; }
+      ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+
+      /* Neon Glow Utilities */
+      .neon-text-cyan { text-shadow: 0 0 10px rgba(0, 217, 255, 0.7); }
+      .neon-text-purple { text-shadow: 0 0 10px rgba(168, 85, 247, 0.7); }
+      .neon-border-cyan { box-shadow: 0 0 10px rgba(0, 217, 255, 0.3), inset 0 0 5px rgba(0, 217, 255, 0.1); }
+      .neon-box-purple { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+      
+      /* CRT Scanline Effect */
+      .scanlines::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+        z-index: 50;
+        background-size: 100% 2px, 3px 100%;
+        pointer-events: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-background text-text antialiased overflow-x-hidden selection:bg-primary selection:text-black">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,65 +1,65 @@
 import { Project, Experience, Skill } from './types';
 
-export const PROFILE_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQG5oyd-wpIWvg/profile-displayphoto-crop_800_800/B4EZn0.UjyHgAI-/0/1760751603330?e=1766016000&v=beta&t=QVyQXbpiDZEHV_-L09zvKBwh55O64vXn9NXmtc5Dxpo"; // Replace with your image URL
+export const PROFILE_IMAGE = "https://github.com/YNJ05.png"; // Replace with your image URL
 
 export const RESUME_CONTENT = `
 Yassin NAJMI
-Étudiant en ingénierie à l’INPT, spécialisé en Systèmes Distribués (Cloud/IoT)
+Engineering Student at INPT, specialized in Distributed Systems (Cloud/IoT)
 Email: yassinnajmi5@gmail.com
-Téléphone: +212 766-916-867
-Site: yassinnajmi.me
+Phone: +212 766-916-867
+Website: yassinnajmi.me
 GitHub: YNJ05
 LinkedIn: Yassin NAJMI
-Localisation: Rabat, Maroc
+Location: Rabat, Morocco
 
-PROFIL:
-Étudiant en ingénierie à l’INPT, spécialisé en Systèmes Distribués (Cloud/IoT). Expérimenté dans les infrastructures cloud avec OpenStack et le développement d’applications IoT. À la recherche d’un stage PFA pour appliquer mes compétences techniques.
+PROFILE:
+Engineering student at INPT, specialized in Distributed Systems (Cloud/IoT). Experienced in cloud infrastructures with OpenStack and development of IoT applications. Currently seeking an internship to apply technical skills in an innovative environment.
 
-FORMATION:
-- Institut National des Postes et Télécommunications (INPT), Rabat (2024 - 2027): Ingénierie des Systèmes Ubiquitaires et Distribués (SUD) - Cloud et IoT.
-- Classes Préparatoires aux Grandes Écoles (CPGE), Safi (2022 - 2024): Filière Technologie et Sciences de l’Ingénieur (TSI).
+EDUCATION:
+- National Institute of Posts and Telecommunications (INPT), Rabat (2024 - 2027): Engineering of Ubiquitous and Distributed Systems (SUD) - Cloud and IoT.
+- Preparatory Classes for Grande Écoles (CPGE), Safi (2022 - 2024): Technology and Engineering Sciences (TSI).
 
-PROJETS ACADÉMIQUES:
-1. Mise en place d’un cloud privé avec OpenStack (Cloud Computing/DevOps):
-   - Installation et configuration d’une infrastructure Cloud privée complète (IaaS) avec OpenStack.
-   - Gestion des ressources, réseaux et sécurité dans un environnement cloud distribué.
+ACADEMIC PROJECTS:
+1. Private Cloud Deployment with OpenStack (Cloud Computing/DevOps):
+   - Installation and configuration of a complete private Cloud infrastructure (IaaS) with OpenStack.
+   - Management of resources, networks and security in a distributed cloud environment.
    - Technologies: OpenStack 2025.1 "Epoxy" (Keystone, Glance, Nova, Neutron, Cinder, Horizon), KVM, Ubuntu Server 24.04, MySQL/MariaDB, RabbitMQ.
 
-2. GreenTech SmartBin - Système Intelligent de Gestion des Déchets (IoT / IA / Full Stack):
-   - Développement d’un système IoT pour l’optimisation de la collecte des déchets urbains.
-   - Intégration de capteurs et algorithmes d’optimisation des tournées de collecte.
-   - Détection automatique du niveau de remplissage et classification des déchets.
+2. GreenTech SmartBin - Intelligent Waste Management System (IoT / AI / Full Stack):
+   - Development of an IoT system for optimizing urban waste collection.
+   - Integration of sensors and optimization algorithms for collection routes.
+   - Automatic fill level detection and waste classification.
    - Technologies: Python, Arduino, OpenCV, YOLO, HTML/CSS.
 
-3. Portfolio Professionnel (Développement Web):
-   - Conception et développement d’un site portfolio responsive pour présenter mes projets et compétences.
-   - Interface moderne avec animations et effets visuels pour une expérience utilisateur optimale.
+3. Professional Portfolio (Web Development):
+   - Design and development of a responsive portfolio website to showcase projects and skills.
+   - Modern interface with animations and visual effects for optimal user experience.
    - Technologies: HTML5, CSS3, JavaScript, Particle.js, Tilt.js.
 
-4. Grass Cutter Robot (Tondeuse Robotique Autonome) (Robotique / Automatisme):
-   - Conception et modélisation d’une tondeuse robotique autonome pour terrains fortement inclinés.
-   - Réalisation de l’étude de dimensionnement du moteur et de la modélisation dynamique du système.
-   - Technologies: Mécanique des systèmes, Modélisation dynamique, Asservissement, Capteurs.
+4. Grass Cutter Robot (Autonomous Robotic Mower) (Robotics / Automation):
+   - Design and modeling of an autonomous robotic mower for steep terrain.
+   - Implementation of motor sizing study and system dynamic modeling.
+   - Technologies: Systems mechanics, Dynamic modeling, Control systems, Sensors.
 
-COMPÉTENCES TECHNIQUES:
-- Langages de programmation: Java, Python, C, C++, JavaScript, TypeScript.
+TECHNICAL SKILLS:
+- Programming Languages: Java, Python, C, C++, JavaScript, TypeScript.
 - Frontend: HTML5, CSS3, Bootstrap, React, Angular.
 - Backend & Frameworks: Node.js, Express.js, Python, Django, Spring Boot.
-- Bases de données: MySQL, MongoDB, SQLite, PostgreSQL.
-- Outils & DevOps: Git, GitHub, Docker, Linux, OpenStack, KVM, VS Code, Postman.
+- Databases: MySQL, MongoDB, SQLite, PostgreSQL.
+- Tools & DevOps: Git, GitHub, Docker, Linux, OpenStack, KVM, VS Code, Postman.
 
-LANGUES:
-- Français (Fluent)
-- Anglais (Professionnel)
-- Arabe (Native)
+LANGUAGES:
+- French (Fluent)
+- English (Professional)
+- Arabic (Native)
 `;
 
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Cloud Privé OpenStack",
+    title: "Private OpenStack Cloud",
     category: "Cloud Computing / DevOps",
-    description: "Installation et configuration d’une infrastructure Cloud privée complète (IaaS). Gestion des ressources, réseaux et sécurité dans un environnement distribué.",
+    description: "Installation and configuration of a complete private Cloud infrastructure (IaaS). Management of resources, networks and security in a distributed environment.",
     technologies: ["OpenStack Epoxy", "KVM", "Ubuntu 24.04", "RabbitMQ", "MySQL"],
     imageUrl: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=1000",
     github: "https://github.com/YNJ05"
@@ -67,8 +67,8 @@ export const PROJECTS: Project[] = [
   {
     id: 2,
     title: "GreenTech SmartBin",
-    category: "IoT / IA / Full Stack",
-    description: "Système IoT pour l’optimisation de la collecte des déchets urbains avec détection automatique de remplissage et classification par IA.",
+    category: "IoT / AI / Full Stack",
+    description: "IoT system for optimizing urban waste collection with automatic fill level detection and AI-based classification.",
     technologies: ["Python", "Arduino", "OpenCV", "YOLO", "IoT"],
     imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=1000",
     github: "https://github.com/YNJ05"
@@ -76,17 +76,17 @@ export const PROJECTS: Project[] = [
   {
     id: 3,
     title: "Grass Cutter Robot",
-    category: "Robotique / Automatisme",
-    description: "Tondeuse robotique autonome conçue pour des terrains fortement inclinés avec modélisation dynamique et asservissement.",
-    technologies: ["C++", "Modélisation", "Capteurs", "Automatisme"],
+    category: "Robotics / Automation",
+    description: "Autonomous robotic mower designed for steep terrain with dynamic modeling and control systems.",
+    technologies: ["C++", "Modeling", "Sensors", "Automation"],
     imageUrl: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1000",
     github: "https://github.com/YNJ05"
   },
   {
     id: 4,
-    title: "Portfolio Professionnel",
-    category: "Développement Web",
-    description: "Site vitrine responsive avec animations et effets visuels avancés (Particle.js, Tilt.js) pour l'expérience utilisateur.",
+    title: "Professional Portfolio",
+    category: "Web Development",
+    description: "Responsive showcase website with advanced animations and visual effects (Particle.js, Tilt.js) for optimal user experience.",
     technologies: ["React", "TypeScript", "Tailwind", "CSS3"],
     imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=1000",
     github: "https://github.com/YNJ05"
@@ -96,19 +96,19 @@ export const PROJECTS: Project[] = [
 export const EDUCATION: Experience[] = [
   {
     id: 1,
-    role: "Ingénierie des Systèmes Ubiquitaires et Distribués",
+    role: "Engineering of Ubiquitous and Distributed Systems",
     company: "INPT, Rabat",
     period: "2024 - 2027",
     type: "education",
-    description: ["Spécialisation Cloud et IoT", "Architecture Distribuée", "DevOps"]
+    description: ["Cloud & IoT Specialization", "Distributed Architecture", "DevOps"]
   },
   {
     id: 2,
-    role: "Classes Préparatoires (TSI)",
+    role: "Preparatory Classes (TSI)",
     company: "CPGE, Safi",
     period: "2022 - 2024",
     type: "education",
-    description: ["Technologie et Sciences de l’Ingénieur", "Mathématiques", "Physique"]
+    description: ["Technology and Engineering Sciences", "Mathematics", "Physics"]
   }
 ];
 

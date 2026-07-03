@@ -62,6 +62,8 @@ import {
   Certification
 } from "./data";
 
+import TechBackground from "./components/TechBackground";
+
 const deviconMap: Record<string, string> = {
   "python": "python/python-original.svg",
   "typescript": "typescript/typescript-original.svg",
@@ -321,6 +323,7 @@ export default function App() {
         <div className="aurora-blob aurora-2"></div>
         <div className="aurora-blob aurora-3"></div>
       </div>
+      <TechBackground />
       <div className="tech-grid"></div>
 
       {/* Floating Apple Header */}
@@ -333,7 +336,7 @@ export default function App() {
             className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/20 shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(true); }}
           >
-            <img src="/assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
+            <img src="assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
               // fallback if local asset missing
               (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200";
             }} />
@@ -526,7 +529,7 @@ export default function App() {
                 
                 {/* CV Button */}
                 <a 
-                  href={lang === "fr" ? "/assets/CV_YASSIN_NAJMI_FR.pdf" : "/assets/CV_YASSIN_NAJMI_ENG.pdf"}
+                  href={lang === "fr" ? "assets/CV_YASSIN_NAJMI_FR.pdf" : "assets/CV_YASSIN_NAJMI_ENG.pdf"}
                   target="_blank"
                   rel="noreferrer"
                   className={`px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 border flex items-center justify-center gap-2 hover:scale-[1.02] ${
@@ -1343,8 +1346,15 @@ export default function App() {
                 )}
                 {selectedProject.links?.report && (
                   <a 
-                    href="#" // Simulated local report click
-                    onClick={(e) => { e.preventDefault(); alert(lang === "fr" ? "Rapport PDF disponible dans l'archive !" : "PDF report is available within the local archive !"); }}
+                    href={selectedProject.links.report === "#" ? "#" : selectedProject.links.report} 
+                    target={selectedProject.links.report === "#" ? undefined : "_blank"}
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      if (selectedProject.links?.report === "#") {
+                        e.preventDefault();
+                        alert(lang === "fr" ? "Rapport PDF disponible dans l'archive !" : "PDF report is available within the local archive !");
+                      }
+                    }}
                     className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${
                       theme === "dark"
                         ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
@@ -1387,7 +1397,7 @@ export default function App() {
               </button>
 
               <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-sky-400 shadow-2xl relative">
-                <img src="/assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
+                <img src="assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200";
                 }} />
               </div>

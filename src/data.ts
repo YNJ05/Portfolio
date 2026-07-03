@@ -174,7 +174,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/OpenStack-Epoxy-Deployment",
       demo: "https://horizon.ynj-cloud.net",
-      report: "#"
+      report: "assets/OpenStack.pdf"
     }
   },
   {
@@ -197,7 +197,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/aws-ecs-microservices-cicd",
       demo: "https://alb.ynj-cloud.net",
-      report: "#"
+      report: "assets/architectures_et_middlewares.pdf"
     }
   },
   {
@@ -220,7 +220,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/GreenTech-SmartBin",
       demo: "https://smartbin.ynj-cloud.net",
-      report: "#"
+      report: "assets/SmartBin.pdf"
     }
   },
   {
@@ -243,7 +243,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/MyHeart-Project",
       demo: "https://myheart.ynj-cloud.net",
-      report: "#"
+      report: "assets/MyHeart_RAPPORT.pdf"
     }
   },
   {
@@ -266,7 +266,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/Ai-Counsult",
       demo: "https://ai-consult.ynj-cloud.net",
-      report: "#"
+      report: "assets/chatbot-1.pdf"
     }
   },
   {
@@ -333,7 +333,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/Grass-Cutter-Robot",
       demo: "https://github.com/YNJ05/Grass-Cutter-Robot",
-      report: "#"
+      report: "assets/GrassCutterRobot.pdf"
     }
   },
   {
@@ -356,7 +356,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/ESXi-AD-FailoverCluster",
       demo: "https://github.com/YNJ05/ESXi-AD-FailoverCluster",
-      report: "#"
+      report: "assets/VIRTUALISATION.pdf"
     }
   }
 ];

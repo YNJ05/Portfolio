@@ -70,8 +70,10 @@ export default function TechBackground() {
         "database",
       ];
 
+      // Keep hubs well within viewport bounds
+      const hubPad = isMobile ? 80 : 120;
       hubTypes.forEach((type, idx) => {
-        // Place hubs in different quadrants
+        // Place hubs in different quadrants, clamped away from edges
         let hX = width * 0.25;
         let hY = height * 0.25;
 
@@ -86,11 +88,15 @@ export default function TechBackground() {
           hY = height * 0.75;
         }
 
+        // Clamp initial positions away from edges
+        hX = Math.max(hubPad, Math.min(width - hubPad, hX + (Math.random() - 0.5) * 80));
+        hY = Math.max(hubPad, Math.min(height - hubPad, hY + (Math.random() - 0.5) * 80));
+
         nodes.push({
-          x: hX + (Math.random() - 0.5) * 80,
-          y: hY + (Math.random() - 0.5) * 80,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
+          x: hX,
+          y: hY,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
           radius: isMobile ? 12 : 16,
           type,
           label: hubLabels[type],
@@ -483,11 +489,21 @@ export default function TechBackground() {
         node.x += node.vx;
         node.y += node.vy;
 
-        const pad = 40;
-        if (node.x < -pad) node.x = width + pad;
-        if (node.x > width + pad) node.x = -pad;
-        if (node.y < -pad) node.y = height + pad;
-        if (node.y > height + pad) node.y = -pad;
+        if (node.type !== "standard") {
+          // Hub nodes bounce off edges with generous padding so icons + labels stay visible
+          const hubPad = 100;
+          if (node.x < hubPad) { node.x = hubPad; node.vx = Math.abs(node.vx); }
+          if (node.x > width - hubPad) { node.x = width - hubPad; node.vx = -Math.abs(node.vx); }
+          if (node.y < hubPad) { node.y = hubPad; node.vy = Math.abs(node.vy); }
+          if (node.y > height - hubPad) { node.y = height - hubPad; node.vy = -Math.abs(node.vy); }
+        } else {
+          // Standard nodes wrap around with small padding
+          const pad = 40;
+          if (node.x < -pad) node.x = width + pad;
+          if (node.x > width + pad) node.x = -pad;
+          if (node.y < -pad) node.y = height + pad;
+          if (node.y > height + pad) node.y = -pad;
+        }
 
         // Increment pulsing phases
         node.pulsePhase += node.pulseSpeed;

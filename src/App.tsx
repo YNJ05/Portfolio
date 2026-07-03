@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { 
   motion, 
   AnimatePresence 
@@ -203,6 +204,8 @@ export default function App() {
   useEffect(() => {
     const root = window.document.body;
     root.classList.remove("light-mode");
+    // Initialize EmailJS with public key
+    emailjs.init("6-qLSkjpsZkAg26A1");
   }, []);
 
   // Set browser language on mount
@@ -306,13 +309,34 @@ export default function App() {
     e.preventDefault();
     setIsSending(true);
     
-    // Simulate API dispatch beautifully
-    setTimeout(() => {
+    const templateParams = {
+      user_name: formState.name,
+      user_email: formState.email,
+      from_name: formState.name,
+      name: formState.name,
+      from_email: formState.email,
+      email: formState.email,
+      message: formState.message
+    };
+
+    emailjs.send(
+      "service_uz0a3w4", 
+      "template_k7pzjec", 
+      templateParams,
+      "6-qLSkjpsZkAg26A1"
+    )
+    .then(() => {
       setIsSending(false);
       setFormSuccess(true);
       setFormState({ name: "", email: "", message: "" });
       setTimeout(() => setFormSuccess(null), 4000);
-    }, 1800);
+    })
+    .catch((error) => {
+      console.error("EmailJS Error:", error);
+      setIsSending(false);
+      setFormSuccess(false);
+      setTimeout(() => setFormSuccess(null), 4000);
+    });
   };
 
   return (
@@ -1126,6 +1150,7 @@ export default function App() {
                     </label>
                     <input 
                       type="text" 
+                      name="from_name"
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({...formState, name: e.target.value})}
@@ -1144,6 +1169,7 @@ export default function App() {
                     </label>
                     <input 
                       type="email" 
+                      name="from_email"
                       required
                       value={formState.email}
                       onChange={(e) => setFormState({...formState, email: e.target.value})}
@@ -1163,6 +1189,7 @@ export default function App() {
                   </label>
                   <textarea 
                     rows={4}
+                    name="message"
                     required
                     value={formState.message}
                     onChange={(e) => setFormState({...formState, message: e.target.value})}
@@ -1185,10 +1212,15 @@ export default function App() {
                       <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       <span>{lang === "fr" ? "Envoi..." : "Sending..."}</span>
                     </>
-                  ) : sendSuccess ? (
+                  ) : sendSuccess === true ? (
                     <>
                       <Check className="w-4 h-4 text-green-300" />
                       <span>{lang === "fr" ? "Message envoyé !" : "Message sent!"}</span>
+                    </>
+                  ) : sendSuccess === false ? (
+                    <>
+                      <X className="w-4 h-4 text-red-400" />
+                      <span>{lang === "fr" ? "Erreur — Réessayez" : "Error — Try Again"}</span>
                     </>
                   ) : (
                     <>

@@ -74,9 +74,9 @@ const deviconMap: Record<string, string> = {
   "c": "c/c-original.svg",
   "c++": "cplusplus/cplusplus-original.svg",
   "java": "java/java-original.svg",
-  "bash": "bash/bash-original.svg",
+  "bash": "bash/bash-plain.svg",
   "html/css": "html5/html5-original.svg",
-  "aws": "amazonwebservices/amazonwebservices-plain.svg",
+  "aws": "amazonwebservices/amazonwebservices-original-wordmark.svg",
   "azure": "azure/azure-original.svg",
   "openstack (epoxy)": "openstack/openstack-original.svg",
   "openstack": "openstack/openstack-original.svg",
@@ -112,25 +112,12 @@ const deviconMap: Record<string, string> = {
   "git / github": "git/git-original.svg",
   "git": "git/git-original.svg",
   "github": "github/github-original.svg",
-  "aws cloudwatch": "amazonwebservices/amazonwebservices-plain.svg"
+  "aws cloudwatch": "amazonwebservices/amazonwebservices-original-wordmark.svg"
 };
 
-const getSkillIcon = (name: string) => {
+const getFallbackIcon = (name: string) => {
   const n = name.toLowerCase().trim();
-
-  if (deviconMap[n]) {
-    const path = deviconMap[n];
-    const isInverted = ["express", "next.js", "github", "github actions"].some(tech => n.includes(tech));
-    return (
-      <img
-        src={`https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/${path}`}
-        alt={name}
-        className={`w-4 h-4 object-contain ${isInverted ? "dark:invert" : ""}`}
-        referrerPolicy="no-referrer"
-      />
-    );
-  }
-
+  
   // Programming Languages
   if (n === 'python') return <Code className="w-3.5 h-3.5 text-amber-500" />;
   if (n === 'typescript' || n === 'ts') return <Code className="w-3.5 h-3.5 text-sky-500" />;
@@ -183,6 +170,31 @@ const getSkillIcon = (name: string) => {
   if (n.includes('git')) return <GitBranch className="w-3.5 h-3.5 text-red-400" />;
 
   return <Sparkles className="w-3.5 h-3.5 text-sky-400/70" />;
+};
+
+const SkillIcon = ({ name }: { name: string }) => {
+  const [hasError, setHasError] = useState(false);
+  const n = name.toLowerCase().trim();
+  const path = deviconMap[n];
+
+  if (path && !hasError) {
+    const isInverted = ["express", "next.js", "github", "github actions"].some(tech => n.includes(tech));
+    return (
+      <img 
+        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}`} 
+        alt={name} 
+        className={`w-4 h-4 object-contain ${isInverted ? "dark:invert" : ""}`}
+        onError={() => setHasError(true)}
+        referrerPolicy="no-referrer"
+      />
+    );
+  }
+
+  return getFallbackIcon(name);
+};
+
+const getSkillIcon = (name: string) => {
+  return <SkillIcon name={name} />;
 };
 
 export default function App() {

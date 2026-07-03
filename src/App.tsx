@@ -190,6 +190,7 @@ export default function App() {
   const theme = "dark";
   const [activeSection, setActiveSection] = useState<string>("home");
   const [projectFilter, setProjectFilter] = useState<string>("all");
+  const [projectSearch, setProjectSearch] = useState<string>("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -247,8 +248,31 @@ export default function App() {
 
   // Filter projects
   const filteredProjects = projects.filter((p) => {
-    if (projectFilter === "all") return true;
-    return p.category === projectFilter;
+    // 1. Category filter
+    if (projectFilter !== "all" && p.category !== projectFilter) {
+      return false;
+    }
+    
+    // 2. Search query filter
+    const query = projectSearch.toLowerCase().trim();
+    if (!query) return true;
+
+    const matchesTitle = p.title.fr.toLowerCase().includes(query) || p.title.en.toLowerCase().includes(query);
+    const matchesDesc = p.description.fr.toLowerCase().includes(query) || p.description.en.toLowerCase().includes(query);
+    const matchesDetails = p.details.fr.toLowerCase().includes(query) || p.details.en.toLowerCase().includes(query);
+    const matchesTags = p.tags.some((tag) => tag.toLowerCase().includes(query));
+
+    const catFr = p.category === "cloud" ? "cloud & devops" :
+                  p.category === "iot" ? "iot & robotique" :
+                  p.category === "ai" ? "ia & data intelligence artificielle" :
+                  "virtualisation";
+    const catEn = p.category === "cloud" ? "cloud & devops" :
+                  p.category === "iot" ? "iot & embedded" :
+                  p.category === "ai" ? "ai & ml data science machine learning" :
+                  "virtualization";
+    const matchesCategory = p.category.toLowerCase().includes(query) || catFr.includes(query) || catEn.includes(query);
+
+    return matchesTitle || matchesDesc || matchesDetails || matchesTags || matchesCategory;
   });
 
   const getProjectIcon = (iconName: string) => {
@@ -851,6 +875,48 @@ export default function App() {
             <div className="h-1 w-12 bg-sky-400 mx-auto rounded-full mb-6"></div>
           </div>
 
+          {/* Search Input Bar */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">
+                <Search className="w-4 h-4" />
+              </span>
+              <input
+                type="text"
+                value={projectSearch}
+                onChange={(e) => setProjectSearch(e.target.value)}
+                placeholder={
+                  lang === "fr" 
+                    ? "Rechercher par titre, tag, catégorie..." 
+                    : "Search by title, tag, category..."
+                }
+                className={`w-full text-sm rounded-full pl-11 pr-10 py-2.5 transition-all duration-300 ${
+                  theme === "dark"
+                    ? "bg-white/5 text-white placeholder-neutral-500 border border-white/5 focus:border-sky-400/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-400/30"
+                    : "bg-neutral-100 text-neutral-900 placeholder-neutral-400 border border-black/5 focus:border-sky-400/50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-400/30"
+                }`}
+              />
+              {projectSearch && (
+                <button
+                  onClick={() => setProjectSearch("")}
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${
+                    theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-400 hover:text-neutral-900"
+                  }`}
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {projectSearch.trim() && (
+              <p className="text-center mt-2 text-[11px] font-medium tracking-wide text-sky-400/80 uppercase">
+                {lang === "fr"
+                  ? `${filteredProjects.length} projet(s) trouvé(s)`
+                  : `${filteredProjects.length} project(s) found`}
+              </p>
+            )}
+          </div>
+
           {/* Filters Pill Menu */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
             {[
@@ -875,62 +941,93 @@ export default function App() {
           </div>
 
           {/* Projects Grid Layout */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((p) => (
-                <motion.article 
-                  key={p.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  onClick={() => setSelectedProject(p)}
-                  className={`flex flex-col p-6 rounded-3xl border cursor-pointer relative overflow-hidden group glass-shimmer h-[320px] ${
-                    theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                  }`}
-                >
-                  {/* Decorative Gradient Line hover */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          {filteredProjects.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((p) => (
+                  <motion.article 
+                    key={p.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    onClick={() => setSelectedProject(p)}
+                    className={`flex flex-col p-6 rounded-3xl border cursor-pointer relative overflow-hidden group glass-shimmer h-[320px] ${
+                      theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                    }`}
+                  >
+                    {/* Decorative Gradient Line hover */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                  <div className="flex justify-between items-start gap-4 mb-4">
-                    <h3 className="text-base font-extrabold tracking-tight group-hover:text-sky-400 transition-colors duration-300 line-clamp-2">
-                      {p.title[lang]}
-                    </h3>
-                    <div className="p-2 rounded-xl bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex-shrink-0">
-                      {getProjectIcon(p.icon)}
-                    </div>
-                  </div>
-
-                  <p className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 ${
-                    theme === "dark" ? "text-neutral-400" : "text-text-secondary"
-                  }`}>
-                    {p.description[lang]}
-                  </p>
-
-                  <div className="mt-auto">
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {p.tags.slice(0, 3).map((tag, idx) => (
-                        <span key={idx} className="text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-black/10 dark:bg-white/5 text-neutral-400">
-                          {tag}
-                        </span>
-                      ))}
-                      {p.tags.length > 3 && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/10 dark:bg-white/5 text-sky-400">
-                          +{p.tags.length - 3}
-                        </span>
-                      )}
+                    <div className="flex justify-between items-start gap-4 mb-4">
+                      <h3 className="text-base font-extrabold tracking-tight group-hover:text-sky-400 transition-colors duration-300 line-clamp-2">
+                        {p.title[lang]}
+                      </h3>
+                      <div className="p-2 rounded-xl bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex-shrink-0">
+                        {getProjectIcon(p.icon)}
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-sky-400 group-hover:translate-x-1 transition-transform duration-300">
-                      {lang === "fr" ? "En savoir plus" : "Learn More"}
-                      <ChevronRight className="w-4 h-4" />
+                    <p className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 ${
+                      theme === "dark" ? "text-neutral-400" : "text-text-secondary"
+                    }`}>
+                      {p.description[lang]}
+                    </p>
+
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {p.tags.slice(0, 3).map((tag, idx) => (
+                          <span key={idx} className="text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-black/10 dark:bg-white/5 text-neutral-400">
+                            {tag}
+                          </span>
+                        ))}
+                        {p.tags.length > 3 && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/10 dark:bg-white/5 text-sky-400">
+                            +{p.tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-sky-400 group-hover:translate-x-1 transition-transform duration-300">
+                        {lang === "fr" ? "En savoir plus" : "Learn More"}
+                        <ChevronRight className="w-4 h-4" />
+                      </div>
                     </div>
-                  </div>
-                </motion.article>
-              ))}
-            </AnimatePresence>
-          </div>
+                  </motion.article>
+                ))}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`flex flex-col items-center justify-center text-center p-12 rounded-3xl border ${
+                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}
+            >
+              <div className="p-4 rounded-full bg-sky-500/10 text-sky-400 mb-4">
+                <Search className="w-8 h-8" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">
+                {lang === "fr" ? "Aucun projet trouvé" : "No projects found"}
+              </h3>
+              <p className={`text-sm max-w-md mb-6 ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"}`}>
+                {lang === "fr" 
+                  ? `Aucun projet ne correspond à la recherche "${projectSearch}" dans cette catégorie.` 
+                  : `No projects match your search query "${projectSearch}" within this category.`}
+              </p>
+              <button
+                onClick={() => {
+                  setProjectSearch("");
+                  setProjectFilter("all");
+                }}
+                className="px-5 py-2.5 text-xs font-bold rounded-full bg-sky-400 text-black hover:bg-sky-300 transition-colors"
+              >
+                {lang === "fr" ? "Réinitialiser les filtres" : "Reset Filters"}
+              </button>
+            </motion.div>
+          )}
         </section>
 
         {/* ================= BENTO SKILLS SECTION ================= */}

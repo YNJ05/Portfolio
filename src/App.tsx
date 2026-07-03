@@ -123,7 +123,7 @@ const getSkillIcon = (name: string) => {
     const isInverted = ["express", "next.js", "github", "github actions"].some(tech => n.includes(tech));
     return (
       <img 
-        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}`} 
+        src={`https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/${path}`} 
         alt={name} 
         className={`w-4 h-4 object-contain ${isInverted ? "dark:invert" : ""}`}
         referrerPolicy="no-referrer"
@@ -206,7 +206,7 @@ export default function App() {
     const root = window.document.body;
     root.classList.remove("light-mode");
     // Initialize EmailJS with public key
-    emailjs.init("6-qLSkjpsZkAg26A1");
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "6-qLSkjpsZkAg26A1");
   }, []);
 
   // Set browser language on mount
@@ -344,10 +344,10 @@ export default function App() {
     };
 
     emailjs.send(
-      "service_uz0a3w4", 
-      "template_k7pzjec", 
+      import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_uz0a3w4", 
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_k7pzjec", 
       templateParams,
-      "6-qLSkjpsZkAg26A1"
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "6-qLSkjpsZkAg26A1"
     )
     .then(() => {
       setIsSending(false);

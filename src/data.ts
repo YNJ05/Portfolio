@@ -367,7 +367,7 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services (AWS)",
     date: { fr: "Avril 2026", en: "April 2026" },
     skills: "AWS CodePipeline, AWS CodeDeploy, Amazon ECS, Docker, Microservices.",
-    url: "https://www.credly.com/", // Default placeholder for Credly
+    url: "assets/AWS Academy Graduate — Cloud Architecting.png",
     logo: "AWS"
   },
   {
@@ -375,7 +375,7 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services (AWS)",
     date: { fr: "Avril 2026", en: "April 2026" },
     skills: "Architecting Solutions on AWS, Cloud Security, Computing, Storage, Database, Networks.",
-    url: "https://www.credly.com/",
+    url: "assets/AWS Academy Graduate — Cloud Architecting.png",
     logo: "AWS"
   },
   {
@@ -383,7 +383,7 @@ export const certifications: Certification[] = [
     issuer: "Oracle",
     date: { fr: "Novembre 2025", en: "November 2025" },
     skills: "Cloud Foundations, Compute, Storage, Networking, IAM, OCI Services.",
-    url: "https://catalog-education.oracle.com/",
+    url: "assets/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png",
     logo: "Oracle"
   }
 ];

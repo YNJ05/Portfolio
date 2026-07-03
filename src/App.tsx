@@ -1,38 +1,38 @@
 import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { 
-  motion, 
-  AnimatePresence 
+import {
+  motion,
+  AnimatePresence
 } from "motion/react";
-import { 
-  Cloud, 
-  Cpu, 
-  Layers, 
-  Award, 
-  TrendingUp, 
-  Heart, 
-  Trash2, 
-  GitBranch, 
-  MessageSquare, 
+import {
+  Cloud,
+  Cpu,
+  Layers,
+  Award,
+  TrendingUp,
+  Heart,
+  Trash2,
+  GitBranch,
+  MessageSquare,
   CheckSquare,
-  Briefcase, 
-  GraduationCap, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Linkedin, 
-  Github, 
-  ExternalLink, 
-  FileText, 
-  Code, 
-  Menu, 
-  X, 
-  Sun, 
-  Moon, 
-  Globe, 
-  Download, 
-  Check, 
-  Send, 
+  Briefcase,
+  GraduationCap,
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Github,
+  ExternalLink,
+  FileText,
+  Code,
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Globe,
+  Download,
+  Check,
+  Send,
   Calendar,
   ChevronRight,
   Sparkles,
@@ -50,12 +50,12 @@ import {
   Eye,
   ArrowUp
 } from "lucide-react";
-import { 
-  info, 
-  educations, 
-  experiences, 
-  projects, 
-  certifications, 
+import {
+  info,
+  educations,
+  experiences,
+  projects,
+  certifications,
   skills,
   Project,
   Education,
@@ -117,14 +117,14 @@ const deviconMap: Record<string, string> = {
 
 const getSkillIcon = (name: string) => {
   const n = name.toLowerCase().trim();
-  
+
   if (deviconMap[n]) {
     const path = deviconMap[n];
     const isInverted = ["express", "next.js", "github", "github actions"].some(tech => n.includes(tech));
     return (
-      <img 
-        src={`https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/${path}`} 
-        alt={name} 
+      <img
+        src={`https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/${path}`}
+        alt={name}
         className={`w-4 h-4 object-contain ${isInverted ? "dark:invert" : ""}`}
         referrerPolicy="no-referrer"
       />
@@ -195,7 +195,7 @@ export default function App() {
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
-  
+
   // Contact Form State
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
   const [isSending, setIsSending] = useState<boolean>(false);
@@ -206,7 +206,7 @@ export default function App() {
     const root = window.document.body;
     root.classList.remove("light-mode");
     // Initialize EmailJS with public key
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "6-qLSkjpsZkAg26A1");
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   }, []);
 
   // Set browser language on mount
@@ -224,7 +224,7 @@ export default function App() {
     const handleScroll = () => {
       const scrollPos = window.scrollY + 120;
       const sectionElements = document.querySelectorAll("section[id]");
-      
+
       sectionElements.forEach((el) => {
         const top = (el as HTMLElement).offsetTop;
         const height = (el as HTMLElement).offsetHeight;
@@ -252,7 +252,7 @@ export default function App() {
     if (projectFilter !== "all" && p.category !== projectFilter) {
       return false;
     }
-    
+
     // 2. Search query filter
     const query = projectSearch.toLowerCase().trim();
     if (!query) return true;
@@ -263,13 +263,13 @@ export default function App() {
     const matchesTags = p.tags.some((tag) => tag.toLowerCase().includes(query));
 
     const catFr = p.category === "cloud" ? "cloud & devops" :
-                  p.category === "iot" ? "iot & robotique" :
-                  p.category === "ai" ? "ia & data intelligence artificielle" :
-                  "virtualisation";
+      p.category === "iot" ? "iot & robotique" :
+        p.category === "ai" ? "ia & data intelligence artificielle" :
+          "virtualisation";
     const catEn = p.category === "cloud" ? "cloud & devops" :
-                  p.category === "iot" ? "iot & embedded" :
-                  p.category === "ai" ? "ai & ml data science machine learning" :
-                  "virtualization";
+      p.category === "iot" ? "iot & embedded" :
+        p.category === "ai" ? "ai & ml data science machine learning" :
+          "virtualization";
     const matchesCategory = p.category.toLowerCase().includes(query) || catFr.includes(query) || catEn.includes(query);
 
     return matchesTitle || matchesDesc || matchesDetails || matchesTags || matchesCategory;
@@ -332,7 +332,7 @@ export default function App() {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
-    
+
     const templateParams = {
       user_name: formState.name,
       user_email: formState.email,
@@ -344,23 +344,23 @@ export default function App() {
     };
 
     emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_uz0a3w4", 
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_k7pzjec", 
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       templateParams,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "6-qLSkjpsZkAg26A1"
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
-    .then(() => {
-      setIsSending(false);
-      setFormSuccess(true);
-      setFormState({ name: "", email: "", message: "" });
-      setTimeout(() => setFormSuccess(null), 4000);
-    })
-    .catch((error) => {
-      console.error("EmailJS Error:", error);
-      setIsSending(false);
-      setFormSuccess(false);
-      setTimeout(() => setFormSuccess(null), 4000);
-    });
+      .then(() => {
+        setIsSending(false);
+        setFormSuccess(true);
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setFormSuccess(null), 4000);
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        setIsSending(false);
+        setFormSuccess(false);
+        setTimeout(() => setFormSuccess(null), 4000);
+      });
   };
 
   return (
@@ -375,12 +375,11 @@ export default function App() {
       <div className="tech-grid"></div>
 
       {/* Floating Apple Header */}
-      <header className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-5xl h-16 px-6 flex items-center justify-between rounded-full border transition-all duration-300 ${
-        theme === "dark" ? "glass-nav-dark shadow-black/45" : "glass-nav-light shadow-sky-900/5"
-      }`}>
+      <header className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-5xl h-16 px-6 flex items-center justify-between rounded-full border transition-all duration-300 ${theme === "dark" ? "glass-nav-dark shadow-black/45" : "glass-nav-light shadow-sky-900/5"
+        }`}>
         {/* Brand */}
         <div className="flex items-center gap-3 font-extrabold text-sm tracking-tight cursor-pointer" onClick={() => scrollTo("home")}>
-          <div 
+          <div
             className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/20 shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(true); }}
           >
@@ -398,28 +397,26 @@ export default function App() {
             <button
               key={section}
               onClick={() => scrollTo(section)}
-              className={`relative px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
-                activeSection === section 
-                  ? theme === "dark" ? "text-white" : "text-neutral-900" 
+              className={`relative px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${activeSection === section
+                  ? theme === "dark" ? "text-white" : "text-neutral-900"
                   : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
-              }`}
+                }`}
             >
               {activeSection === section && (
                 <motion.div
                   layoutId="activeTab"
-                  className={`absolute inset-0 border rounded-full shadow-sm z-0 ${
-                    theme === "dark" 
-                      ? "bg-white/10 border-white/15" 
+                  className={`absolute inset-0 border rounded-full shadow-sm z-0 ${theme === "dark"
+                      ? "bg-white/10 border-white/15"
                       : "bg-white border-black/10"
-                  }`}
+                    }`}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
               <span className="relative z-10 capitalize">
-                {section === "home" ? (lang === "fr" ? "Accueil" : "Home") : 
-                 section === "profile" ? (lang === "fr" ? "Profil" : "Profile") : 
-                 section === "projects" ? (lang === "fr" ? "Projets" : "Projects") : 
-                 section === "skills" ? (lang === "fr" ? "Compétences" : "Skills") : "Contact"}
+                {section === "home" ? (lang === "fr" ? "Accueil" : "Home") :
+                  section === "profile" ? (lang === "fr" ? "Profil" : "Profile") :
+                    section === "projects" ? (lang === "fr" ? "Projets" : "Projects") :
+                      section === "skills" ? (lang === "fr" ? "Compétences" : "Skills") : "Contact"}
               </span>
             </button>
           ))}
@@ -429,42 +426,39 @@ export default function App() {
         <div className="flex items-center gap-3">
           {/* Language Toggle */}
           <div className="flex border rounded-full overflow-hidden bg-black/10 dark:bg-white/5 border-black/10 dark:border-white/10 p-0.5">
-            <button 
+            <button
               onClick={() => setLang("fr")}
-              className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${
-                lang === "fr" 
-                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white" 
+              className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${lang === "fr"
+                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
                   : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
-              }`}
+                }`}
             >
               FR
             </button>
-            <button 
+            <button
               onClick={() => setLang("en")}
-              className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${
-                lang === "en" 
-                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white" 
+              className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${lang === "en"
+                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
                   : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
-              }`}
+                }`}
             >
               EN
             </button>
           </div>
 
           {/* Quick Contact CTA Desktop */}
-          <button 
+          <button
             onClick={() => scrollTo("contact")}
-            className={`hidden md:block px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 shadow-md ${
-              theme === "dark"
+            className={`hidden md:block px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 shadow-md ${theme === "dark"
                 ? "bg-white text-black hover:bg-neutral-100 shadow-black/20"
                 : "bg-neutral-900 text-white hover:bg-neutral-800 shadow-sky-900/10"
-            }`}
+              }`}
           >
             {lang === "fr" ? "Contactez-moi" : "Get in Touch"}
           </button>
 
           {/* Hamburger Mobile */}
-          <button 
+          <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-1 rounded-md"
             aria-label="Open Menu"
@@ -477,37 +471,34 @@ export default function App() {
       {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-24 left-4 right-4 z-40 p-6 rounded-3xl border md:hidden ${
-              theme === "dark" ? "glass-panel-dark" : "glass-panel-light"
-            }`}
+            className={`fixed top-24 left-4 right-4 z-40 p-6 rounded-3xl border md:hidden ${theme === "dark" ? "glass-panel-dark" : "glass-panel-light"
+              }`}
           >
             <div className="flex flex-col gap-4">
               {(["home", "profile", "projects", "skills", "contact"] as const).map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollTo(section)}
-                  className={`py-2.5 text-sm font-bold text-center rounded-xl transition-all duration-300 ${
-                    activeSection === section 
+                  className={`py-2.5 text-sm font-bold text-center rounded-xl transition-all duration-300 ${activeSection === section
                       ? theme === "dark" ? "bg-white/10 text-white" : "bg-neutral-900/10 text-neutral-900"
                       : "text-neutral-500"
-                  }`}
+                    }`}
                 >
-                  {section === "home" ? (lang === "fr" ? "Accueil" : "Home") : 
-                   section === "profile" ? (lang === "fr" ? "Profil" : "Profile") : 
-                   section === "projects" ? (lang === "fr" ? "Projets" : "Projects") : 
-                   section === "skills" ? (lang === "fr" ? "Compétences" : "Skills") : "Contact"}
+                  {section === "home" ? (lang === "fr" ? "Accueil" : "Home") :
+                    section === "profile" ? (lang === "fr" ? "Profil" : "Profile") :
+                      section === "projects" ? (lang === "fr" ? "Projets" : "Projects") :
+                        section === "skills" ? (lang === "fr" ? "Compétences" : "Skills") : "Contact"}
                 </button>
               ))}
-              
-              <button 
+
+              <button
                 onClick={() => scrollTo("contact")}
-                className={`mt-2 py-3 text-xs font-bold rounded-xl transition-all duration-300 w-full text-center ${
-                  theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
-                }`}
+                className={`mt-2 py-3 text-xs font-bold rounded-xl transition-all duration-300 w-full text-center ${theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
+                  }`}
               >
                 {lang === "fr" ? "Contactez-moi" : "Get in Touch"}
               </button>
@@ -517,22 +508,21 @@ export default function App() {
       </AnimatePresence>
 
       <main className="transition-all duration-500 pt-8">
-        
+
         {/* ================= HERO SECTION ================= */}
         <section id="home" className="min-h-[92vh] flex items-center px-4 max-w-5xl mx-auto pt-24 pb-12">
           <div className="grid md:grid-cols-12 gap-12 items-center w-full">
-            
+
             {/* Left Copy */}
             <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left">
               {/* Status Badge */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6 text-xs font-semibold ${
-                  theme === "dark" 
-                    ? "bg-sky-500/10 border-sky-400/20 text-sky-300" 
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6 text-xs font-semibold ${theme === "dark"
+                    ? "bg-sky-500/10 border-sky-400/20 text-sky-300"
                     : "bg-sky-50 border-sky-200 text-sky-700"
-                }`}
+                  }`}
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
@@ -542,9 +532,8 @@ export default function App() {
               </motion.div>
 
               {/* Title & Name */}
-              <h1 className={`text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 ${
-                theme === "dark" ? "text-white" : "text-neutral-900"
-              }`}>
+              <h1 className={`text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 ${theme === "dark" ? "text-white" : "text-neutral-900"
+                }`}>
                 {lang === "fr" ? "Salut, je suis" : "Hey, I'm"}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400">
                   {info.name}
@@ -552,39 +541,36 @@ export default function App() {
               </h1>
 
               {/* Tagline */}
-              <h2 className={`text-lg sm:text-xl font-semibold mb-6 max-w-lg leading-relaxed ${
-                theme === "dark" ? "text-neutral-300" : "text-neutral-700"
-              }`}>
+              <h2 className={`text-lg sm:text-xl font-semibold mb-6 max-w-lg leading-relaxed ${theme === "dark" ? "text-neutral-300" : "text-neutral-700"
+                }`}>
                 {info.title[lang]}
               </h2>
 
               {/* Short Bio */}
-              <p className={`text-sm sm:text-base mb-8 max-w-xl leading-relaxed ${
-                theme === "dark" ? "text-neutral-400" : "text-neutral-500"
-              }`}>
+              <p className={`text-sm sm:text-base mb-8 max-w-xl leading-relaxed ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"
+                }`}>
                 {info.bio[lang]}
               </p>
 
               {/* Actions */}
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                <button 
+                <button
                   onClick={() => scrollTo("projects")}
                   className="px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white shadow-lg shadow-sky-500/10 hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Code className="w-4 h-4" />
                   {lang === "fr" ? "Découvrir mes projets" : "Explore Projects"}
                 </button>
-                
+
                 {/* CV Button */}
-                <a 
+                <a
                   href={lang === "fr" ? "assets/CV_YASSIN_NAJMI_FR.pdf" : "assets/CV_YASSIN_NAJMI_ENG.pdf"}
                   target="_blank"
                   rel="noreferrer"
-                  className={`px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 border flex items-center justify-center gap-2 hover:scale-[1.02] ${
-                    theme === "dark"
+                  className={`px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 border flex items-center justify-center gap-2 hover:scale-[1.02] ${theme === "dark"
                       ? "bg-white/5 border-white/10 hover:bg-white/10 text-white"
                       : "bg-white border-neutral-200 hover:bg-neutral-50 text-neutral-800"
-                  }`}
+                    }`}
                 >
                   <Download className="w-4 h-4" />
                   {lang === "fr" ? "Télécharger mon CV" : "Download CV"}
@@ -592,9 +578,8 @@ export default function App() {
               </div>
 
               {/* Quick links info */}
-              <div className={`flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 mt-8 text-xs ${
-                theme === "dark" ? "text-neutral-500" : "text-neutral-400"
-              }`}>
+              <div className={`flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 mt-8 text-xs ${theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+                }`}>
                 <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> Rabat, Morocco</span>
                 <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> INPT student</span>
               </div>
@@ -602,22 +587,20 @@ export default function App() {
 
             {/* Right Widget Panel */}
             <div className="md:col-span-5 flex justify-center">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className={`w-full max-w-sm rounded-3xl border p-6 relative overflow-hidden glass-shimmer ${
-                  theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                }`}
+                className={`w-full max-w-sm rounded-3xl border p-6 relative overflow-hidden glass-shimmer ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                  }`}
               >
                 {/* Visual accents */}
                 <div className="absolute top-0 right-0 w-32 height-32 bg-sky-500/10 rounded-full filter blur-xl pointer-events-none"></div>
 
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></div>
-                  <span className={`text-[10px] font-extrabold tracking-widest uppercase ${
-                    theme === "dark" ? "text-neutral-500" : "text-neutral-400"
-                  }`}>
+                  <span className={`text-[10px] font-extrabold tracking-widest uppercase ${theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+                    }`}>
                     {lang === "fr" ? "Instantané en temps réel" : "Live Snapshot"}
                   </span>
                 </div>
@@ -654,9 +637,8 @@ export default function App() {
                   </div>
 
                   {/* Stats / Interactive quote */}
-                  <div className={`text-center text-xs italic px-2 pt-2 ${
-                    theme === "dark" ? "text-neutral-500" : "text-neutral-400"
-                  }`}>
+                  <div className={`text-center text-xs italic px-2 pt-2 ${theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+                    }`}>
                     &ldquo;{lang === "fr" ? "Concevoir des infrastructures fiables, un pipeline à la fois." : "Designing reliable systems, one pipeline at a time."}&rdquo;
                   </div>
                 </div>
@@ -681,9 +663,8 @@ export default function App() {
           <div className="grid md:grid-cols-12 gap-8 items-start">
             {/* About text boxes */}
             <div className="md:col-span-5 space-y-6">
-              <div className={`p-6 rounded-3xl border ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}>
+              <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}>
                 <h3 className="text-base font-extrabold mb-4 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-sky-400" />
                   {lang === "fr" ? "Qui je suis" : "Who I am"}
@@ -697,9 +678,8 @@ export default function App() {
               </div>
 
               {/* Language skills bento block */}
-              <div className={`p-6 rounded-3xl border ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}>
+              <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}>
                 <h3 className="text-base font-extrabold mb-4 flex items-center gap-2">
                   <Globe className="w-4 h-4 text-sky-400" />
                   {lang === "fr" ? "Langues de Communication" : "Languages"}
@@ -761,31 +741,28 @@ export default function App() {
                     {/* Glowing point */}
                     <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-4 border-sky-400 bg-neutral-900 shadow-md shadow-sky-400/20"></div>
 
-                    <div className={`p-6 rounded-3xl border ${
-                      theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                    }`}>
+                    <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                      }`}>
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <span className="text-xs font-bold text-sky-400">
                           {edu.date[lang]}
                         </span>
-                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                          theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
-                        }`}>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
+                          }`}>
                           {edu.location[lang]}
                         </span>
                       </div>
-                      
+
                       <h4 className="text-base font-extrabold mb-1">
                         {edu.degree[lang]}
                       </h4>
-                      
+
                       <div className="text-xs font-bold text-indigo-400 mb-3">
                         {edu.school[lang]}
                       </div>
 
-                      <p className={`text-xs sm:text-sm leading-relaxed ${
-                        theme === "dark" ? "text-neutral-400" : "text-neutral-500"
-                      }`}>
+                      <p className={`text-xs sm:text-sm leading-relaxed ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"
+                        }`}>
                         {edu.description[lang]}
                       </p>
                     </div>
@@ -816,16 +793,14 @@ export default function App() {
                   <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                 </span>
 
-                <div className={`p-6 rounded-3xl border ${
-                  theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                }`}>
+                <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                  }`}>
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <span className="text-xs font-bold text-sky-400">
                       {exp.date[lang]}
                     </span>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                      theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
-                    }`}>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
+                      }`}>
                       {exp.location[lang]}
                     </span>
                   </div>
@@ -886,22 +861,20 @@ export default function App() {
                 value={projectSearch}
                 onChange={(e) => setProjectSearch(e.target.value)}
                 placeholder={
-                  lang === "fr" 
-                    ? "Rechercher par titre, tag, catégorie..." 
+                  lang === "fr"
+                    ? "Rechercher par titre, tag, catégorie..."
                     : "Search by title, tag, category..."
                 }
-                className={`w-full text-sm rounded-full pl-11 pr-10 py-2.5 transition-all duration-300 ${
-                  theme === "dark"
+                className={`w-full text-sm rounded-full pl-11 pr-10 py-2.5 transition-all duration-300 ${theme === "dark"
                     ? "bg-white/5 text-white placeholder-neutral-500 border border-white/5 focus:border-sky-400/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-400/30"
                     : "bg-neutral-100 text-neutral-900 placeholder-neutral-400 border border-black/5 focus:border-sky-400/50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-400/30"
-                }`}
+                  }`}
               />
               {projectSearch && (
                 <button
                   onClick={() => setProjectSearch("")}
-                  className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${
-                    theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-400 hover:text-neutral-900"
-                  }`}
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-400 hover:text-neutral-900"
+                    }`}
                   aria-label="Clear search"
                 >
                   <X className="w-4 h-4" />
@@ -929,11 +902,10 @@ export default function App() {
               <button
                 key={f.id}
                 onClick={() => setProjectFilter(f.id)}
-                className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
-                  projectFilter === f.id
+                className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${projectFilter === f.id
                     ? theme === "dark" ? "bg-white text-black font-extrabold" : "bg-neutral-900 text-white font-extrabold"
                     : theme === "dark" ? "bg-white/5 text-neutral-400 hover:text-white border border-white/5" : "bg-neutral-100 text-neutral-600 hover:text-neutral-900 border border-black/5"
-                }`}
+                  }`}
               >
                 {f.label[lang]}
               </button>
@@ -945,7 +917,7 @@ export default function App() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((p) => (
-                  <motion.article 
+                  <motion.article
                     key={p.id}
                     layout
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -953,9 +925,8 @@ export default function App() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => setSelectedProject(p)}
-                    className={`flex flex-col p-6 rounded-3xl border cursor-pointer relative overflow-hidden group glass-shimmer h-[320px] ${
-                      theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                    }`}
+                    className={`flex flex-col p-6 rounded-3xl border cursor-pointer relative overflow-hidden group glass-shimmer h-[320px] ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                      }`}
                   >
                     {/* Decorative Gradient Line hover */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -969,9 +940,8 @@ export default function App() {
                       </div>
                     </div>
 
-                    <p className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 ${
-                      theme === "dark" ? "text-neutral-400" : "text-text-secondary"
-                    }`}>
+                    <p className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 ${theme === "dark" ? "text-neutral-400" : "text-text-secondary"
+                      }`}>
                       {p.description[lang]}
                     </p>
 
@@ -999,12 +969,11 @@ export default function App() {
               </AnimatePresence>
             </div>
           ) : (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`flex flex-col items-center justify-center text-center p-12 rounded-3xl border ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}
+              className={`flex flex-col items-center justify-center text-center p-12 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}
             >
               <div className="p-4 rounded-full bg-sky-500/10 text-sky-400 mb-4">
                 <Search className="w-8 h-8" />
@@ -1013,8 +982,8 @@ export default function App() {
                 {lang === "fr" ? "Aucun projet trouvé" : "No projects found"}
               </h3>
               <p className={`text-sm max-w-md mb-6 ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"}`}>
-                {lang === "fr" 
-                  ? `Aucun projet ne correspond à la recherche "${projectSearch}" dans cette catégorie.` 
+                {lang === "fr"
+                  ? `Aucun projet ne correspond à la recherche "${projectSearch}" dans cette catégorie.`
                   : `No projects match your search query "${projectSearch}" within this category.`}
               </p>
               <button
@@ -1044,9 +1013,8 @@ export default function App() {
 
           <div className="grid md:grid-cols-12 gap-6">
             {/* Box 1: Languages */}
-            <div className={`p-6 rounded-3xl border md:col-span-4 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-4 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <Code className="w-4 h-4" /> {skills.languages.title[lang]}
               </h3>
@@ -1061,9 +1029,8 @@ export default function App() {
             </div>
 
             {/* Box 2: Cloud & DevOps */}
-            <div className={`p-6 rounded-3xl border md:col-span-8 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-8 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <Cloud className="w-4 h-4" /> {skills.cloudDevops.title[lang]}
               </h3>
@@ -1078,9 +1045,8 @@ export default function App() {
             </div>
 
             {/* Box 3: Web & Backend */}
-            <div className={`p-6 rounded-3xl border md:col-span-6 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-6 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <BookOpen className="w-4 h-4" /> {skills.webBackend.title[lang]}
               </h3>
@@ -1095,9 +1061,8 @@ export default function App() {
             </div>
 
             {/* Box 4: Virtualization & IaC */}
-            <div className={`p-6 rounded-3xl border md:col-span-6 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-6 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <Layers className="w-4 h-4" /> {skills.virtualizationIaC.title[lang]}
               </h3>
@@ -1112,9 +1077,8 @@ export default function App() {
             </div>
 
             {/* Box 5: Databases */}
-            <div className={`p-6 rounded-3xl border md:col-span-4 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-4 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <Layers className="w-4 h-4" /> {skills.databases.title[lang]}
               </h3>
@@ -1129,9 +1093,8 @@ export default function App() {
             </div>
 
             {/* Box 6: IoT & Robotics */}
-            <div className={`p-6 rounded-3xl border md:col-span-4 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-4 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <Cpu className="w-4 h-4" /> {skills.iotRobotics.title[lang]}
               </h3>
@@ -1146,9 +1109,8 @@ export default function App() {
             </div>
 
             {/* Box 7: Observability & Quality */}
-            <div className={`p-6 rounded-3xl border md:col-span-4 ${
-              theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-            }`}>
+            <div className={`p-6 rounded-3xl border md:col-span-4 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+              }`}>
               <h3 className="text-sm font-extrabold mb-4 flex items-center gap-2 text-sky-400 uppercase tracking-widest text-xs">
                 <TrendingUp className="w-4 h-4" /> {skills.observability.title[lang]}
               </h3>
@@ -1179,9 +1141,8 @@ export default function App() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {certifications.map((cert, idx) => (
-              <div key={idx} className={`p-6 rounded-3xl border flex flex-col h-full ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}>
+              <div key={idx} className={`p-6 rounded-3xl border flex flex-col h-full ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}>
                 <div className="flex items-center gap-3.5 mb-5">
                   <div className="w-11 h-11 rounded-2xl bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center flex-shrink-0">
                     {getCertIcon(cert.logo)}
@@ -1202,15 +1163,14 @@ export default function App() {
                   <strong className="text-neutral-200 dark:text-neutral-300">Skills:</strong> {cert.skills}
                 </p>
 
-                <a 
-                  href={cert.url} 
-                  target="_blank" 
+                <a
+                  href={cert.url}
+                  target="_blank"
                   rel="noreferrer"
-                  className={`w-full py-2.5 text-center text-[11px] font-bold rounded-xl border flex items-center justify-center gap-1.5 transition-all duration-300 ${
-                    theme === "dark" 
-                      ? "border-white/10 hover:border-sky-400/40 text-neutral-300 hover:text-sky-300 hover:bg-sky-400/5" 
+                  className={`w-full py-2.5 text-center text-[11px] font-bold rounded-xl border flex items-center justify-center gap-1.5 transition-all duration-300 ${theme === "dark"
+                      ? "border-white/10 hover:border-sky-400/40 text-neutral-300 hover:text-sky-300 hover:bg-sky-400/5"
                       : "border-neutral-200 hover:border-neutral-400 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50"
-                  }`}
+                    }`}
                 >
                   <span>{lang === "fr" ? "Voir les détails" : "Show credential"}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1237,26 +1197,24 @@ export default function App() {
           <div className="grid md:grid-cols-12 gap-8 items-start max-w-4xl mx-auto">
             {/* Form */}
             <div className="md:col-span-7">
-              <form onSubmit={handleFormSubmit} className={`p-6 sm:p-8 rounded-3xl border space-y-4 ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}>
+              <form onSubmit={handleFormSubmit} className={`p-6 sm:p-8 rounded-3xl border space-y-4 ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-extrabold tracking-widest uppercase text-neutral-400">
                       {lang === "fr" ? "Nom complet" : "Your Name"}
                     </label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="from_name"
                       required
                       value={formState.name}
-                      onChange={(e) => setFormState({...formState, name: e.target.value})}
+                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       placeholder="John Doe"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${
-                        theme === "dark" 
-                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10" 
+                      className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${theme === "dark"
+                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
                           : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
-                      }`}
+                        }`}
                     />
                   </div>
 
@@ -1264,18 +1222,17 @@ export default function App() {
                     <label className="text-[10px] font-extrabold tracking-widest uppercase text-neutral-400">
                       Email
                     </label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="from_email"
                       required
                       value={formState.email}
-                      onChange={(e) => setFormState({...formState, email: e.target.value})}
+                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       placeholder="john@example.com"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${
-                        theme === "dark" 
-                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10" 
+                      className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${theme === "dark"
+                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
                           : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
-                      }`}
+                        }`}
                     />
                   </div>
                 </div>
@@ -1284,23 +1241,22 @@ export default function App() {
                   <label className="text-[10px] font-extrabold tracking-widest uppercase text-neutral-400">
                     Message
                   </label>
-                  <textarea 
+                  <textarea
                     rows={4}
                     name="message"
                     required
                     value={formState.message}
-                    onChange={(e) => setFormState({...formState, message: e.target.value})}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder={lang === "fr" ? "Parlez-moi de votre besoin, de votre projet ou d'un poste..." : "Tell me about your project, team, or opportunity..."}
-                    className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 resize-none ${
-                      theme === "dark" 
-                        ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10" 
+                    className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 resize-none ${theme === "dark"
+                        ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
                         : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
-                    }`}
+                      }`}
                   />
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSending}
                   className="w-full py-3.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md"
                 >
@@ -1331,9 +1287,8 @@ export default function App() {
 
             {/* Direct contact items */}
             <div className="md:col-span-5 space-y-4">
-              <div className={`p-6 rounded-3xl border ${
-                theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-              }`}>
+              <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                }`}>
                 <div className="space-y-5">
                   <div>
                     <span className="text-[10px] font-extrabold tracking-widest text-sky-400 uppercase">Email</span>
@@ -1361,17 +1316,17 @@ export default function App() {
 
                   {/* Social media footer connectors */}
                   <div className="pt-5 border-t border-black/5 dark:border-white/5 flex gap-3">
-                    <a 
-                      href={info.contact.linkedin} 
-                      target="_blank" 
+                    <a
+                      href={info.contact.linkedin}
+                      target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-full bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center text-neutral-400 hover:text-white hover:border-sky-400/40 hover:bg-sky-400/5 transition-all duration-300"
                     >
                       <Linkedin className="w-4 h-4" />
                     </a>
-                    <a 
-                      href={info.contact.github} 
-                      target="_blank" 
+                    <a
+                      href={info.contact.github}
+                      target="_blank"
                       rel="noreferrer"
                       className="w-10 h-10 rounded-full bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center text-neutral-400 hover:text-white hover:border-sky-400/40 hover:bg-sky-400/5 transition-all duration-300"
                     >
@@ -1396,30 +1351,28 @@ export default function App() {
       {/* ================= PROJECT MODAL DETAILED VIEW ================= */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
             onClick={() => setSelectedProject(null)}
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              className={`w-full max-w-2xl rounded-3xl border overflow-hidden p-6 sm:p-8 relative ${
-                theme === "dark" ? "glass-panel-dark border-white/10" : "glass-panel-light border-black/10"
-              }`}
+              className={`w-full max-w-2xl rounded-3xl border overflow-hidden p-6 sm:p-8 relative ${theme === "dark" ? "glass-panel-dark border-white/10" : "glass-panel-light border-black/10"
+                }`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
-                className={`absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center hover:scale-105 transition-all duration-300 ${
-                  theme === "dark" 
-                    ? "bg-white/5 border-white/10 hover:bg-white/10 text-white" 
+                className={`absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center hover:scale-105 transition-all duration-300 ${theme === "dark"
+                    ? "bg-white/5 border-white/10 hover:bg-white/10 text-white"
                     : "bg-neutral-100 border-black/10 hover:bg-neutral-200 text-neutral-800"
-                }`}
+                  }`}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1433,9 +1386,9 @@ export default function App() {
                     {selectedProject.title[lang]}
                   </h3>
                   <span className="text-[10px] font-bold tracking-widest text-sky-400 uppercase">
-                    {selectedProject.category === "cloud" ? "Cloud & DevOps" : 
-                     selectedProject.category === "iot" ? "IoT & Embedded" : 
-                     selectedProject.category === "ai" ? "AI & Data Science" : "Virtualization"}
+                    {selectedProject.category === "cloud" ? "Cloud & DevOps" :
+                      selectedProject.category === "iot" ? "IoT & Embedded" :
+                        selectedProject.category === "ai" ? "AI & Data Science" : "Virtualization"}
                   </span>
                 </div>
               </div>
@@ -1459,23 +1412,22 @@ export default function App() {
               {/* Action/Links */}
               <div className="flex flex-wrap gap-3 border-t border-black/5 dark:border-white/5 pt-5">
                 {selectedProject.links?.code && (
-                  <a 
-                    href={selectedProject.links.code} 
-                    target="_blank" 
+                  <a
+                    href={selectedProject.links.code}
+                    target="_blank"
                     rel="noreferrer"
-                    className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${
-                      theme === "dark" 
-                        ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200" 
+                    className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${theme === "dark"
+                        ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
                         : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
-                    }`}
+                      }`}
                   >
                     <Github className="w-4 h-4" />
                     <span>GitHub</span>
                   </a>
                 )}
                 {selectedProject.links?.report && (
-                  <a 
-                    href={selectedProject.links.report === "#" ? "#" : selectedProject.links.report} 
+                  <a
+                    href={selectedProject.links.report === "#" ? "#" : selectedProject.links.report}
                     target={selectedProject.links.report === "#" ? undefined : "_blank"}
                     rel="noreferrer"
                     onClick={(e) => {
@@ -1484,11 +1436,10 @@ export default function App() {
                         alert(lang === "fr" ? "Rapport PDF disponible dans l'archive !" : "PDF report is available within the local archive !");
                       }
                     }}
-                    className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${
-                      theme === "dark"
+                    className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${theme === "dark"
                         ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
                         : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
-                    }`}
+                      }`}
                   >
                     <FileText className="w-4 h-4 text-sky-400" />
                     <span>{lang === "fr" ? "Rapport PDF" : "PDF Report"}</span>
@@ -1503,14 +1454,14 @@ export default function App() {
       {/* ================= AVATAR LIGHTBOX COMPONENT ================= */}
       <AnimatePresence>
         {isLightboxOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl"
             onClick={() => setIsLightboxOpen(false)}
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
@@ -1518,7 +1469,7 @@ export default function App() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close x */}
-              <button 
+              <button
                 onClick={() => setIsLightboxOpen(false)}
                 className="absolute -top-12 right-0 text-white hover:text-sky-400 transition-colors duration-300 text-3xl font-light"
               >
@@ -1533,23 +1484,23 @@ export default function App() {
 
               {/* Social profiles overlay inside lightbox */}
               <div className="flex gap-4">
-                <a 
-                  href={info.contact.linkedin} 
-                  target="_blank" 
+                <a
+                  href={info.contact.linkedin}
+                  target="_blank"
                   rel="noreferrer"
                   className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-sky-400/40 hover:bg-sky-400/10 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a 
-                  href={info.contact.github} 
-                  target="_blank" 
+                <a
+                  href={info.contact.github}
+                  target="_blank"
                   rel="noreferrer"
                   className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-sky-400/40 hover:bg-sky-400/10 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300"
                 >
                   <Github className="w-5 h-5" />
                 </a>
-                <a 
+                <a
                   href={`mailto:${info.contact.email}`}
                   className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-sky-400/40 hover:bg-sky-400/10 flex items-center justify-center text-neutral-300 hover:text-white transition-all duration-300"
                 >

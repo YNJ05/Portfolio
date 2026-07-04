@@ -117,7 +117,7 @@ const deviconMap: Record<string, string> = {
 
 const getFallbackIcon = (name: string) => {
   const n = name.toLowerCase().trim();
-  
+
   // Programming Languages
   if (n === 'python') return <Code className="w-3.5 h-3.5 text-amber-500" />;
   if (n === 'typescript' || n === 'ts') return <Code className="w-3.5 h-3.5 text-sky-500" />;
@@ -180,9 +180,9 @@ const SkillIcon = ({ name }: { name: string }) => {
   if (path && !hasError) {
     const isInverted = ["express", "next.js", "github", "github actions"].some(tech => n.includes(tech));
     return (
-      <img 
-        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}`} 
-        alt={name} 
+      <img
+        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}`}
+        alt={name}
         className={`w-4 h-4 object-contain ${isInverted ? "dark:invert" : ""}`}
         onError={() => setHasError(true)}
         referrerPolicy="no-referrer"
@@ -197,6 +197,34 @@ const getSkillIcon = (name: string) => {
   return <SkillIcon name={name} />;
 };
 
+const getSchoolLogo = (schoolName: string) => {
+  const name = schoolName.toLowerCase();
+  if (name.includes("postes") || name.includes("inpt")) {
+    return "assets/inptlogo.svg";
+  }
+  if (name.includes("moulay abdellah") || name.includes("cpge")) {
+    return "assets/cpgelogo.png";
+  }
+  if (name.includes("technique")) {
+    return "assets/logo.png";
+  }
+  return null;
+};
+
+const getCertLogo = (certName: string) => {
+  const name = certName.toLowerCase();
+  if (name.includes("microservices")) {
+    return "assets/blob.png";
+  }
+  if (name.includes("architecting")) {
+    return "assets/AWS Academy Graduate — Cloud Architecting.png";
+  }
+  if (name.includes("oracle") || name.includes("oci")) {
+    return "assets/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png";
+  }
+  return null;
+};
+
 export default function App() {
   const [lang, setLang] = useState<"fr" | "en">("fr");
   const theme = "dark";
@@ -207,6 +235,8 @@ export default function App() {
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
+  const [showCVDropdown, setShowCVDropdown] = useState<boolean>(false);
+  const cvDropdownRef = useRef<HTMLDivElement>(null);
 
   // Contact Form State
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
@@ -217,9 +247,22 @@ export default function App() {
   useEffect(() => {
     const root = window.document.body;
     root.classList.remove("light-mode");
-    // Initialize EmailJS with public key
+    // Initialize EmailJS with public key env variable
     emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   }, []);
+
+  // Close CV dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target as Node)) {
+        setShowCVDropdown(false);
+      }
+    };
+    if (showCVDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showCVDropdown]);
 
   // Set browser language on mount
   useEffect(() => {
@@ -314,8 +357,8 @@ export default function App() {
         );
       case "Oracle":
         return (
-          <svg viewBox="0 0 231 30" className="w-8 h-8 object-contain" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#FFFFFF" d="M99.61,19.52h15.24l-8.05-13L92,30H85.27l18-28.17a4.29,4.29,0,0,1,7-.05L128.32,30h-6.73l-3.17-5.25H103l-3.36-5.23m69.93,5.23V0.28h-5.72V27.16a2.76,2.76,0,0,0,.85,2,2.89,2.89,0,0,0,2.08.87h26l3.39-5.25H169.54M75,20.38A10,10,0,0,0,75,.28H50V30h5.71V5.54H74.65a4.81,4.81,0,0,1,0,9.62H58.54L75.6,30h8.29L72.43,20.38H75M14.88,30H32.15a14.86,14.86,0,0,0,0-29.71H14.88a14.86,14.86,0,1,0,0,29.71m16.88-5.23H15.26a9.62,9.62,0,0,1,0-19.23h16.5a9.62,9.62,0,1,1,0,19.23M140.25,30h17.63l3.34-5.23H140.64a9.62,9.62,0,1,1,0-19.23h16.75l3.38-5.25H140.25a14.86,14.86,0,1,0,0,29.71m69.87-5.23a9.62,9.62,0,0,1-9.26-7h24.42l3.36-5.24H200.86a9.61,9.61,0,0,1,9.26-7h16.76l3.35-5.25h-20.5a14.86,14.86,0,0,0,0,29.71h17.63l3.35-5.23h-20.6" />
+          <svg viewBox="0 0 231 30" className="w-9 h-auto max-h-4 object-contain" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#C74634" d="M99.61,19.52h15.24l-8.05-13L92,30H85.27l18-28.17a4.29,4.29,0,0,1,7-.05L128.32,30h-6.73l-3.17-5.25H103l-3.36-5.23m69.93,5.23V0.28h-5.72V27.16a2.76,2.76,0,0,0,.85,2,2.89,2.89,0,0,0,2.08.87h26l3.39-5.25H169.54M75,20.38A10,10,0,0,0,75,.28H50V30h5.71V5.54H74.65a4.81,4.81,0,0,1,0,9.62H58.54L75.6,30h8.29L72.43,20.38H75M14.88,30H32.15a14.86,14.86,0,0,0,0-29.71H14.88a14.86,14.86,0,1,0,0,29.71m16.88-5.23H15.26a9.62,9.62,0,0,1,0-19.23h16.5a9.62,9.62,0,1,1,0,19.23M140.25,30h17.63l3.34-5.23H140.64a9.62,9.62,0,1,1,0-19.23h16.75l3.38-5.25H140.25a14.86,14.86,0,1,0,0,29.71m69.87-5.23a9.62,9.62,0,0,1-9.26-7h24.42l3.36-5.24H200.86a9.61,9.61,0,0,1,9.26-7h16.76l3.35-5.25h-20.5a14.86,14.86,0,0,0,0,29.71h17.63l3.35-5.23h-20.6" />
           </svg>
         );
       default:
@@ -410,16 +453,16 @@ export default function App() {
               key={section}
               onClick={() => scrollTo(section)}
               className={`relative px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${activeSection === section
-                  ? theme === "dark" ? "text-white" : "text-neutral-900"
-                  : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
+                ? theme === "dark" ? "text-white" : "text-neutral-900"
+                : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
                 }`}
             >
               {activeSection === section && (
                 <motion.div
                   layoutId="activeTab"
                   className={`absolute inset-0 border rounded-full shadow-sm z-0 ${theme === "dark"
-                      ? "bg-white/10 border-white/15"
-                      : "bg-white border-black/10"
+                    ? "bg-white/10 border-white/15"
+                    : "bg-white border-black/10"
                     }`}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
@@ -441,8 +484,8 @@ export default function App() {
             <button
               onClick={() => setLang("fr")}
               className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${lang === "fr"
-                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
-                  : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
+                ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
+                : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
                 }`}
             >
               FR
@@ -450,20 +493,50 @@ export default function App() {
             <button
               onClick={() => setLang("en")}
               className={`px-3 py-1 text-[10px] font-extrabold rounded-full transition-all duration-300 ${lang === "en"
-                  ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
-                  : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
+                ? theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
+                : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-600 hover:text-neutral-950"
                 }`}
             >
               EN
             </button>
           </div>
 
+          {/* Social Icons */}
+          <div className="hidden md:flex items-center gap-1.5">
+            <a
+              href={info.contact.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 hover:border-sky-400/50 hover:text-sky-400 hover:shadow-[0_0_12px_rgba(56,189,248,0.2)] ${
+                theme === "dark"
+                  ? "border-white/10 text-neutral-400 bg-white/5"
+                  : "border-black/10 text-neutral-500 bg-black/5"
+              }`}
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href={info.contact.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 hover:border-sky-400/50 hover:text-sky-400 hover:shadow-[0_0_12px_rgba(56,189,248,0.2)] ${
+                theme === "dark"
+                  ? "border-white/10 text-neutral-400 bg-white/5"
+                  : "border-black/10 text-neutral-500 bg-black/5"
+              }`}
+            >
+              <Github className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
           {/* Quick Contact CTA Desktop */}
           <button
             onClick={() => scrollTo("contact")}
             className={`hidden md:block px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 shadow-md ${theme === "dark"
-                ? "bg-white text-black hover:bg-neutral-100 shadow-black/20"
-                : "bg-neutral-900 text-white hover:bg-neutral-800 shadow-sky-900/10"
+              ? "bg-white text-black hover:bg-neutral-100 shadow-black/20"
+              : "bg-neutral-900 text-white hover:bg-neutral-800 shadow-sky-900/10"
               }`}
           >
             {lang === "fr" ? "Contactez-moi" : "Get in Touch"}
@@ -496,8 +569,8 @@ export default function App() {
                   key={section}
                   onClick={() => scrollTo(section)}
                   className={`py-2.5 text-sm font-bold text-center rounded-xl transition-all duration-300 ${activeSection === section
-                      ? theme === "dark" ? "bg-white/10 text-white" : "bg-neutral-900/10 text-neutral-900"
-                      : "text-neutral-500"
+                    ? theme === "dark" ? "bg-white/10 text-white" : "bg-neutral-900/10 text-neutral-900"
+                    : "text-neutral-500"
                     }`}
                 >
                   {section === "home" ? (lang === "fr" ? "Accueil" : "Home") :
@@ -532,8 +605,8 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6 text-xs font-semibold ${theme === "dark"
-                    ? "bg-sky-500/10 border-sky-400/20 text-sky-300"
-                    : "bg-sky-50 border-sky-200 text-sky-700"
+                  ? "bg-sky-500/10 border-sky-400/20 text-sky-300"
+                  : "bg-sky-50 border-sky-200 text-sky-700"
                   }`}
               >
                 <span className="relative flex h-2 w-2">
@@ -574,19 +647,106 @@ export default function App() {
                   {lang === "fr" ? "Découvrir mes projets" : "Explore Projects"}
                 </button>
 
-                {/* CV Button */}
-                <a
-                  href={lang === "fr" ? "assets/CV_YASSIN_NAJMI_FR.pdf" : "assets/CV_YASSIN_NAJMI_ENG.pdf"}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 border flex items-center justify-center gap-2 hover:scale-[1.02] ${theme === "dark"
+                {/* CV Dropdown Button */}
+                <div className="relative" ref={cvDropdownRef}>
+                  <button
+                    onClick={() => setShowCVDropdown((v) => !v)}
+                    className={`px-6 py-3.5 text-xs font-bold rounded-full transition-all duration-300 border flex items-center justify-center gap-2 hover:scale-[1.02] ${theme === "dark"
                       ? "bg-white/5 border-white/10 hover:bg-white/10 text-white"
                       : "bg-white border-neutral-200 hover:bg-neutral-50 text-neutral-800"
-                    }`}
-                >
-                  <Download className="w-4 h-4" />
-                  {lang === "fr" ? "Télécharger mon CV" : "Download CV"}
-                </a>
+                      } ${showCVDropdown ? (theme === "dark" ? "bg-white/10 border-white/20" : "bg-neutral-50 border-neutral-300") : ""}`}
+                  >
+                    <Download className="w-4 h-4" />
+                    {lang === "fr" ? "Télécharger mon CV" : "Download CV"}
+                    <svg
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ${showCVDropdown ? "rotate-180" : ""}`}
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  <AnimatePresence>
+                    {showCVDropdown && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] z-50 w-72 rounded-2xl border shadow-2xl overflow-hidden ${
+                          theme === "dark"
+                            ? "glass-panel-dark border-white/10 shadow-black/60"
+                            : "glass-panel-light border-black/8 shadow-black/10"
+                        }`}
+                      >
+                        {/* Header */}
+                        <div className={`flex items-center justify-between px-5 pt-4 pb-2 border-b ${
+                          theme === "dark" ? "border-white/8" : "border-black/6"
+                        }`}>
+                          <span className={`text-[10px] font-extrabold tracking-widest uppercase ${
+                            theme === "dark" ? "text-neutral-400" : "text-neutral-500"
+                          }`}>
+                            {lang === "fr" ? "Choisir la version" : "Select Version"}
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400">PDF</span>
+                        </div>
+
+                        {/* Options */}
+                        <div className="p-2">
+                          {/* English Version */}
+                          <a
+                            href="assets/CV_YASSIN_NAJMI_ENG.pdf"
+                            download="CV_YASSIN_NAJMI_ENG.pdf"
+                            onClick={() => setShowCVDropdown(false)}
+                            className={`flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all duration-200 group ${
+                              theme === "dark"
+                                ? "hover:bg-white/8 text-white"
+                                : "hover:bg-black/4 text-neutral-800"
+                            }`}
+                          >
+                            <span className="text-2xl leading-none select-none">🇬🇧</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-xs font-extrabold">
+                                {lang === "fr" ? "Version Anglaise" : "English Version"}
+                              </div>
+                              <div className={`text-[10px] mt-0.5 font-medium ${
+                                theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+                              }`}>CV_YASSIN_NAJMI_ENG.pdf</div>
+                            </div>
+                            <ChevronRight className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 ${
+                              theme === "dark" ? "text-neutral-600 group-hover:text-sky-400" : "text-neutral-300 group-hover:text-sky-500"
+                            }`} />
+                          </a>
+
+                          {/* French Version */}
+                          <a
+                            href="assets/CV_YASSIN_NAJMI_FR.pdf"
+                            download="CV_YASSIN_NAJMI_FR.pdf"
+                            onClick={() => setShowCVDropdown(false)}
+                            className={`flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all duration-200 group ${
+                              theme === "dark"
+                                ? "hover:bg-white/8 text-white"
+                                : "hover:bg-black/4 text-neutral-800"
+                            }`}
+                          >
+                            <span className="text-2xl leading-none select-none">🇫🇷</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-xs font-extrabold">
+                                {lang === "fr" ? "Version Française" : "French Version"}
+                              </div>
+                              <div className={`text-[10px] mt-0.5 font-medium ${
+                                theme === "dark" ? "text-neutral-500" : "text-neutral-400"
+                              }`}>CV_YASSIN_NAJMI_FR.pdf</div>
+                            </div>
+                            <ChevronRight className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 ${
+                              theme === "dark" ? "text-neutral-600 group-hover:text-sky-400" : "text-neutral-300 group-hover:text-sky-500"
+                            }`} />
+                          </a>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
 
               {/* Quick links info */}
@@ -753,30 +913,41 @@ export default function App() {
                     {/* Glowing point */}
                     <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-4 border-sky-400 bg-neutral-900 shadow-md shadow-sky-400/20"></div>
 
-                    <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                    <div className={`relative p-6 rounded-3xl border flex flex-col sm:flex-row gap-5 items-start overflow-hidden ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
                       }`}>
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <span className="text-xs font-bold text-sky-400">
-                          {edu.date[lang]}
-                        </span>
-                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
+                      {/* Logo as background watermark */}
+                      {getSchoolLogo(edu.school.en || edu.school.fr) && (
+                        <img
+                          src={getSchoolLogo(edu.school.en || edu.school.fr)!}
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute bottom-3 right-4 w-28 h-28 object-contain opacity-[0.07] pointer-events-none select-none"
+                        />
+                      )}
+                      <div className="flex-grow min-w-0">
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                          <span className="text-xs font-bold text-sky-400">
+                            {edu.date[lang]}
+                          </span>
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
+                            }`}>
+                            {edu.location[lang]}
+                          </span>
+                        </div>
+
+                        <h4 className="text-base font-extrabold mb-1">
+                          {edu.degree[lang]}
+                        </h4>
+
+                        <div className="text-xs font-bold text-indigo-400 mb-3">
+                          {edu.school[lang]}
+                        </div>
+
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"
                           }`}>
-                          {edu.location[lang]}
-                        </span>
+                          {edu.description[lang]}
+                        </p>
                       </div>
-
-                      <h4 className="text-base font-extrabold mb-1">
-                        {edu.degree[lang]}
-                      </h4>
-
-                      <div className="text-xs font-bold text-indigo-400 mb-3">
-                        {edu.school[lang]}
-                      </div>
-
-                      <p className={`text-xs sm:text-sm leading-relaxed ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"
-                        }`}>
-                        {edu.description[lang]}
-                      </p>
                     </div>
                   </div>
                 ))}
@@ -801,7 +972,7 @@ export default function App() {
             {experiences.map((exp, idx) => (
               <div key={idx} className="relative">
                 {/* Glowing Bullet */}
-                <span className="absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10">
+                <span className="absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10">
                   <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                 </span>
 
@@ -878,8 +1049,8 @@ export default function App() {
                     : "Search by title, tag, category..."
                 }
                 className={`w-full text-sm rounded-full pl-11 pr-10 py-2.5 transition-all duration-300 ${theme === "dark"
-                    ? "bg-white/5 text-white placeholder-neutral-500 border border-white/5 focus:border-sky-400/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-400/30"
-                    : "bg-neutral-100 text-neutral-900 placeholder-neutral-400 border border-black/5 focus:border-sky-400/50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-400/30"
+                  ? "bg-white/5 text-white placeholder-neutral-500 border border-white/5 focus:border-sky-400/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-400/30"
+                  : "bg-neutral-100 text-neutral-900 placeholder-neutral-400 border border-black/5 focus:border-sky-400/50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-400/30"
                   }`}
               />
               {projectSearch && (
@@ -915,8 +1086,8 @@ export default function App() {
                 key={f.id}
                 onClick={() => setProjectFilter(f.id)}
                 className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${projectFilter === f.id
-                    ? theme === "dark" ? "bg-white text-black font-extrabold" : "bg-neutral-900 text-white font-extrabold"
-                    : theme === "dark" ? "bg-white/5 text-neutral-400 hover:text-white border border-white/5" : "bg-neutral-100 text-neutral-600 hover:text-neutral-900 border border-black/5"
+                  ? theme === "dark" ? "bg-white text-black font-extrabold" : "bg-neutral-900 text-white font-extrabold"
+                  : theme === "dark" ? "bg-white/5 text-neutral-400 hover:text-white border border-white/5" : "bg-neutral-100 text-neutral-600 hover:text-neutral-900 border border-black/5"
                   }`}
               >
                 {f.label[lang]}
@@ -1152,43 +1323,57 @@ export default function App() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {certifications.map((cert, idx) => (
-              <div key={idx} className={`p-6 rounded-3xl border flex flex-col h-full ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                }`}>
-                <div className="flex items-center gap-3.5 mb-5">
-                  <div className="w-11 h-11 rounded-2xl bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center flex-shrink-0">
-                    {getCertIcon(cert.logo)}
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-extrabold text-sky-400 uppercase tracking-wider">{cert.issuer}</div>
-                    <div className={`text-[10px] mt-0.5 ${theme === "dark" ? "text-neutral-500" : "text-neutral-400"}`}>
-                      {cert.date[lang]}
+            {certifications.map((cert, idx) => {
+              const certLogo = getCertLogo(cert.name);
+              return (
+                <div key={idx} className={`p-6 rounded-3xl border flex flex-col h-full ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                  }`}>
+                  <div className="flex items-center gap-3.5 mb-5">
+                    {certLogo ? (
+                      <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center p-1.5 flex-shrink-0 border border-black/5 shadow-md shadow-black/10">
+                        <img
+                          src={certLogo}
+                          alt={cert.name}
+                          className="w-full h-full object-contain"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-11 h-11 rounded-2xl bg-black/10 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center flex-shrink-0">
+                        {getCertIcon(cert.logo)}
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-[10px] font-extrabold text-sky-400 uppercase tracking-wider">{cert.issuer}</div>
+                      <div className={`text-[10px] mt-0.5 ${theme === "dark" ? "text-neutral-500" : "text-neutral-400"}`}>
+                        {cert.date[lang]}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <h3 className="text-sm font-extrabold leading-snug mb-3 flex-grow">
-                  {cert.name}
-                </h3>
+                  <h3 className="text-sm font-extrabold leading-snug mb-3 flex-grow">
+                    {cert.name}
+                  </h3>
 
-                <p className={`text-xs leading-relaxed mb-6 ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"}`}>
-                  <strong className="text-neutral-200 dark:text-neutral-300">Skills:</strong> {cert.skills}
-                </p>
+                  <p className={`text-xs leading-relaxed mb-6 ${theme === "dark" ? "text-neutral-400" : "text-neutral-500"}`}>
+                    <strong className="text-neutral-200 dark:text-neutral-300">Skills:</strong> {cert.skills}
+                  </p>
 
-                <a
-                  href={cert.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`w-full py-2.5 text-center text-[11px] font-bold rounded-xl border flex items-center justify-center gap-1.5 transition-all duration-300 ${theme === "dark"
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`w-full py-2.5 text-center text-[11px] font-bold rounded-xl border flex items-center justify-center gap-1.5 transition-all duration-300 ${theme === "dark"
                       ? "border-white/10 hover:border-sky-400/40 text-neutral-300 hover:text-sky-300 hover:bg-sky-400/5"
                       : "border-neutral-200 hover:border-neutral-400 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50"
-                    }`}
-                >
-                  <span>{lang === "fr" ? "Voir les détails" : "Show credential"}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            ))}
+                      }`}
+                  >
+                    <span>{lang === "fr" ? "Voir les détails" : "Show credential"}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -1224,8 +1409,8 @@ export default function App() {
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       placeholder="John Doe"
                       className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${theme === "dark"
-                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
-                          : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
+                        ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
+                        : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
                         }`}
                     />
                   </div>
@@ -1242,8 +1427,8 @@ export default function App() {
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       placeholder="john@example.com"
                       className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 ${theme === "dark"
-                          ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
-                          : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
+                        ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
+                        : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
                         }`}
                     />
                   </div>
@@ -1261,8 +1446,8 @@ export default function App() {
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder={lang === "fr" ? "Parlez-moi de votre besoin, de votre projet ou d'un poste..." : "Tell me about your project, team, or opportunity..."}
                     className={`w-full px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all duration-300 resize-none ${theme === "dark"
-                        ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
-                        : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
+                      ? "bg-white/5 border-white/10 text-white focus:border-sky-400 focus:bg-white/10"
+                      : "bg-black/5 border-black/10 text-neutral-900 focus:border-sky-500 focus:bg-white"
                       }`}
                   />
                 </div>
@@ -1382,8 +1567,8 @@ export default function App() {
               <button
                 onClick={() => setSelectedProject(null)}
                 className={`absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center hover:scale-105 transition-all duration-300 ${theme === "dark"
-                    ? "bg-white/5 border-white/10 hover:bg-white/10 text-white"
-                    : "bg-neutral-100 border-black/10 hover:bg-neutral-200 text-neutral-800"
+                  ? "bg-white/5 border-white/10 hover:bg-white/10 text-white"
+                  : "bg-neutral-100 border-black/10 hover:bg-neutral-200 text-neutral-800"
                   }`}
               >
                 <X className="w-4 h-4" />
@@ -1429,8 +1614,8 @@ export default function App() {
                     target="_blank"
                     rel="noreferrer"
                     className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${theme === "dark"
-                        ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
-                        : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
+                      ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
+                      : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
                       }`}
                   >
                     <Github className="w-4 h-4" />
@@ -1449,8 +1634,8 @@ export default function App() {
                       }
                     }}
                     className={`px-5 py-2.5 text-xs font-bold rounded-xl border flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer ${theme === "dark"
-                        ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
-                        : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
+                      ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-sky-400/40 text-neutral-200"
+                      : "bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-800"
                       }`}
                   >
                     <FileText className="w-4 h-4 text-sky-400" />

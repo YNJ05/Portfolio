@@ -25,6 +25,8 @@ export interface Experience {
   location: TranslationSet;
   bullets: TranslationSet[];
   skills: string[];
+  type?: TranslationSet;
+  linkedinUrl?: string;
 }
 
 export interface Education {
@@ -55,8 +57,8 @@ export const info = {
     en: "Engineering student at INPT (Rabat) specializing in Cloud & IoT. Passionate about automation, Infrastructure as Code (IaC), and resilient microservice architectures. Backed by practical experience with AWS, Azure, and multi-node OpenStack private cloud deployment."
   },
   status: {
-    fr: "Disponible pour stage PFA (2-3 mois) dès maintenant",
-    en: "Available for PFA Internship (2-3 months) right now"
+    fr: "En stage DevOps chez S B SOLUTIONS MA",
+    en: "DevOps Engineering Intern at S B SOLUTIONS MA"
   },
   contact: {
     email: "yassinnajmi5@gmail.com",
@@ -120,17 +122,51 @@ export const educations: Education[] = [
 
 export const experiences: Experience[] = [
   {
-    date: { fr: "Juillet — Septembre 2025", en: "July — September 2025" },
+    date: { fr: "Juin 2026 — Présent", en: "Jun 2026 — Present" },
     role: {
-      fr: "Stage de Fin d'Année — Déploiement Cloud Privé OpenStack",
-      en: "End of Year Internship — OpenStack Private Cloud Deployment"
+      fr: "Stagiaire Ingénieur DevOps",
+      en: "DevOps Engineering Intern"
     },
-    org: { fr: "Projet Capstone INPT", en: "INPT Capstone Project" },
-    location: { fr: "Rabat, Maroc", en: "Rabat, Morocco" },
+    org: { fr: "S B SOLUTIONS MA", en: "S B SOLUTIONS MA" },
+    type: { fr: "Stage", en: "Internship" },
+    location: { fr: "Skhirat-Témara, Rabat-Salé-Kénitra · À distance", en: "Skhirat-Témara, Rabat-Salé-Kénitra · Remote" },
+    linkedinUrl: "https://www.linkedin.com/company/sbsolutionsma",
     bullets: [
       {
-        fr: "Conception et déploiement complet d'un cloud privé IaaS basé sur OpenStack version Epoxy.",
-        en: "Design and complete deployment of an IaaS private cloud based on OpenStack Epoxy version."
+        fr: "Contribution au déploiement et à l'infrastructure d'une plateforme prête pour la production en tant que stagiaire DevOps.",
+        en: "Contributing to the deployment and infrastructure of a production-ready platform as a DevOps Engineering Intern."
+      },
+      {
+        fr: "Préparation d'environnements, gestion de VPS, et déploiements basés sur Docker pour les applications de l'entreprise.",
+        en: "Responsible for environment preparation, VPS management, and Docker-based deployments for company applications."
+      },
+      {
+        fr: "Mise en place de la gestion de configuration, du logging, de la documentation technique et des procédures de déploiement.",
+        en: "Setting up configuration management, logging, technical documentation, and deployment procedures."
+      },
+      {
+        fr: "Collaboration avec des équipes transversales pour améliorer la fiabilité, l'automatisation et l'efficacité opérationnelle tout au long du cycle de livraison logicielle.",
+        en: "Collaborating with cross-functional teams to improve reliability, automation, and operational efficiency throughout the software delivery lifecycle."
+      }
+    ],
+    skills: ["DevOps", "CI/CD", "Docker", "VPS", "Nginx", "Linux", "Git"]
+  },
+  {
+    date: { fr: "Juillet — Août 2025", en: "Jul — Aug 2025" },
+    role: {
+      fr: "Stage PFA — Déploiement Cloud Privé OpenStack",
+      en: "PFA Internship — OpenStack Private Cloud Deployment"
+    },
+    org: {
+      fr: "Institut National des Postes et Télécommunications (INPT)",
+      en: "Institut National des Postes et Télécommunications (INPT)"
+    },
+    type: { fr: "Stage", en: "Internship" },
+    location: { fr: "Rabat, Maroc · Sur site", en: "Rabat, Morocco · On-site" },
+    bullets: [
+      {
+        fr: "Conception et déploiement complet d'un cloud privé IaaS multi-nœuds basé sur OpenStack version Epoxy.",
+        en: "Designed and deployed a complete multi-node IaaS private cloud using OpenStack Epoxy."
       },
       {
         fr: "Mise en œuvre d'une architecture multi-nœuds (Controller, Compute, Storage) et d'une configuration simplifiée single-node.",

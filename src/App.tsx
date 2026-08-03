@@ -971,17 +971,46 @@ export default function App() {
           <div className="relative pl-6 border-l border-black/10 dark:border-white/10 space-y-8 max-w-3xl mx-auto">
             {experiences.map((exp, idx) => (
               <div key={idx} className="relative">
-                {/* Glowing Bullet */}
-                <span className="absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                {/* Glowing Bullet — pulsing for current position */}
+                <span className={`absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10 ${idx === 0 ? "shadow-[0_0_12px_rgba(56,189,248,0.5)]" : ""}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full bg-white ${idx === 0 ? "animate-pulse" : ""}`}></span>
                 </span>
 
-                <div className={`p-6 rounded-3xl border ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                  }`}>
+                <div className={`relative p-6 rounded-3xl border overflow-hidden ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
+                  } ${idx === 0 ? "ring-1 ring-sky-400/20" : ""}`}>
+
+                  {/* INPT logo watermark for the OpenStack experience */}
+                  {exp.org[lang].toLowerCase().includes("inpt") || exp.org[lang].toLowerCase().includes("postes") ? (
+                    <img
+                      src="assets/inptlogo.svg"
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute bottom-3 right-4 w-24 h-24 object-contain opacity-[0.06] pointer-events-none select-none"
+                    />
+                  ) : null}
+
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-bold text-sky-400">
-                      {exp.date[lang]}
-                    </span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-bold text-sky-400">
+                        {exp.date[lang]}
+                      </span>
+                      {/* Current badge for active position */}
+                      {idx === 0 && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                          </span>
+                          {lang === "fr" ? "En cours" : "Current"}
+                        </span>
+                      )}
+                      {/* Type badge */}
+                      {exp.type && (
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-indigo-500/10 text-indigo-300 border border-indigo-500/15" : "bg-indigo-50 text-indigo-600 border border-indigo-200"}`}>
+                          {exp.type[lang]}
+                        </span>
+                      )}
+                    </div>
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme === "dark" ? "bg-white/5 text-neutral-300" : "bg-neutral-100 text-neutral-700"
                       }`}>
                       {exp.location[lang]}
@@ -994,7 +1023,19 @@ export default function App() {
 
                   <div className="text-xs font-bold text-indigo-400 mb-4 flex items-center gap-1.5">
                     <Briefcase className="w-3.5 h-3.5" />
-                    {exp.org[lang]}
+                    {exp.linkedinUrl ? (
+                      <a
+                        href={exp.linkedinUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hover:text-sky-400 transition-colors duration-300 flex items-center gap-1.5 group"
+                      >
+                        {exp.org[lang]}
+                        <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </a>
+                    ) : (
+                      exp.org[lang]
+                    )}
                   </div>
 
                   <ul className="space-y-3.5 mb-5">

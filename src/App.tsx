@@ -112,7 +112,12 @@ const deviconMap: Record<string, string> = {
   "git / github": "git/git-original.svg",
   "git": "git/git-original.svg",
   "github": "github/github-original.svg",
-  "aws cloudwatch": "amazonwebservices/amazonwebservices-original-wordmark.svg"
+  "aws cloudwatch": "amazonwebservices/amazonwebservices-original-wordmark.svg",
+  "c#": "csharp/csharp-original.svg",
+  "asp.net core": "dotnetcore/dotnetcore-original.svg",
+  "entity framework": "dotnetcore/dotnetcore-original.svg",
+  "react": "react/react-original.svg",
+  "linux": "linux/linux-original.svg"
 };
 
 const getFallbackIcon = (name: string) => {
@@ -969,15 +974,17 @@ export default function App() {
           </div>
 
           <div className="relative pl-6 border-l border-black/10 dark:border-white/10 space-y-8 max-w-3xl mx-auto">
-            {experiences.map((exp, idx) => (
+            {experiences.map((exp, idx) => {
+              const isCurrent = exp.date.en.toLowerCase().includes("present") || exp.date.fr.toLowerCase().includes("présent");
+              return (
               <div key={idx} className="relative">
                 {/* Glowing Bullet — pulsing for current position */}
-                <span className={`absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10 ${idx === 0 ? "shadow-[0_0_12px_rgba(56,189,248,0.5)]" : ""}`}>
-                  <span className={`w-1.5 h-1.5 rounded-full bg-white ${idx === 0 ? "animate-pulse" : ""}`}></span>
+                <span className={`absolute -left-[35px] top-6 w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center border-4 border-black/90 dark:border-[#03050a] z-10 ${isCurrent ? "shadow-[0_0_12px_rgba(56,189,248,0.5)]" : ""}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full bg-white ${isCurrent ? "animate-pulse" : ""}`}></span>
                 </span>
 
                 <div className={`relative p-6 rounded-3xl border overflow-hidden ${theme === "dark" ? "glass-panel-dark border-white/5" : "glass-panel-light border-black/5"
-                  } ${idx === 0 ? "ring-1 ring-sky-400/20" : ""}`}>
+                  } ${isCurrent ? "ring-1 ring-sky-400/20" : ""}`}>
 
                   {/* INPT logo watermark for the OpenStack experience */}
                   {exp.org[lang].toLowerCase().includes("inpt") || exp.org[lang].toLowerCase().includes("postes") ? (
@@ -995,7 +1002,7 @@ export default function App() {
                         {exp.date[lang]}
                       </span>
                       {/* Current badge for active position */}
-                      {idx === 0 && (
+                      {isCurrent && (
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
                           <span className="relative flex h-1.5 w-1.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -1058,7 +1065,7 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </section>
 

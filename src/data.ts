@@ -57,8 +57,8 @@ export const info = {
     en: "Engineering student at INPT (Rabat) specializing in Cloud & IoT. Passionate about automation, Infrastructure as Code (IaC), and resilient microservice architectures. Backed by practical experience with AWS, Azure, and multi-node OpenStack private cloud deployment."
   },
   status: {
-    fr: "En stage DevOps chez S B SOLUTIONS MA",
-    en: "DevOps Engineering Intern at S B SOLUTIONS MA"
+    fr: "À la recherche d'un stage PFE",
+    en: "Seeking PFE Internship"
   },
   contact: {
     email: "yassinnajmi5@gmail.com",
@@ -121,6 +121,40 @@ export const educations: Education[] = [
 ];
 
 export const experiences: Experience[] = [
+  {
+    date: { fr: "Juillet 2026 — Présent", en: "Jul 2026 — Present" },
+    role: {
+      fr: "Stagiaire Ingénieur Cloud & Full-Stack",
+      en: "Cloud & Full-Stack Software Engineer Intern"
+    },
+    org: { fr: "Synthèse Conseil", en: "Synthèse Conseil" },
+    type: { fr: "Stage", en: "Internship" },
+    location: { fr: "Maroc · À distance", en: "Morocco · Remote" },
+    linkedinUrl: "https://www.linkedin.com/company/synth%C3%A8se-conseil",
+    bullets: [
+      {
+        fr: "Contribution à la conception et au développement d'une plateforme de prévision financière alimentée par l'IA, intégrée à des systèmes ERP hétérogènes pour la prédiction de trésorerie et l'exécution budgétaire.",
+        en: "Contributing to the design and development of an AI-powered financial forecasting platform that integrates with heterogeneous ERP systems to provide cash flow and budget execution predictions."
+      },
+      {
+        fr: "Développement d'API RESTful avec ASP.NET Core et mise en place de pipelines d'import et de validation de données financières (Excel/CSV).",
+        en: "Developing RESTful APIs using ASP.NET Core and building Excel/CSV financial data import and validation pipelines."
+      },
+      {
+        fr: "Implémentation d'une architecture de base de données multi-tenant avec Entity Framework Core et normalisation des données comptables vers un modèle standardisé.",
+        en: "Implementing a multi-tenant database architecture with Entity Framework Core and normalizing accounting data into a standardized financial model."
+      },
+      {
+        fr: "Intégration de pipelines de prévision par machine learning (ML.NET) et développement de dashboards interactifs de visualisation financière.",
+        en: "Integrating machine learning forecasting pipelines using ML.NET and building interactive dashboards for financial visualization and reporting."
+      },
+      {
+        fr: "Conteneurisation des services avec Docker et Docker Compose, et contribution à l'automatisation CI/CD et au déploiement sur VPS.",
+        en: "Containerizing services using Docker and Docker Compose, and contributing to CI/CD workflows and VPS deployment automation."
+      }
+    ],
+    skills: ["ASP.NET Core", "C#", "Entity Framework", "PostgreSQL", "React", "TypeScript", "Docker", "ML.NET", "REST APIs"]
+  },
   {
     date: { fr: "Juin 2026 — Présent", en: "Jun 2026 — Present" },
     role: {

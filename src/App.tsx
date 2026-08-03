@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import {
   motion,
   AnimatePresence
@@ -1768,6 +1769,8 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 }

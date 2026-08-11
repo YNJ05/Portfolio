@@ -1,0 +1,296 @@
+% ══════════════════════════════════════════════════════════════════════
+%  CV — YASSIN NAJMI · Tailored for Oracle Morocco R&D — PFE 2027
+%  Clean two-column layout · pdfLaTeX
+% ══════════════════════════════════════════════════════════════════════
+
+% !TEX root = relative/or/absolute/path/to/root/file.tex
+\documentclass[10pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────
+\usepackage[left=0.55cm,right=0.55cm,top=0.45cm,bottom=0.4cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}            % elegant professional serif font
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{fontawesome5}
+\usepackage{tikz}
+\usepackage{ragged2e}
+
+% ── Colours (dark blue accent) ────────────────────────────────────────
+\definecolor{heading}{RGB}{20, 66, 114}       % dark navy headings
+\definecolor{accent}{RGB}{20, 66, 114}        % dark navy accent
+\definecolor{linkblue}{RGB}{20, 66, 114}      % dark navy links
+\definecolor{graytext}{RGB}{80, 80, 80}       % dark gray body text
+\definecolor{lightgray}{RGB}{120, 120, 120}   % medium gray
+\definecolor{tagbg}{RGB}{200, 218, 240}       % muted blue tag background
+\definecolor{tagtext}{RGB}{20, 66, 114}       % dark navy tag text
+\definecolor{rulecolor}{RGB}{20, 66, 114}     % dark navy rules
+
+\hypersetup{colorlinks=true, urlcolor=linkblue, linkcolor=accent}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+
+% ── List style ────────────────────────────────────────────────────────
+\setlist[itemize]{
+  noitemsep, topsep=1pt, parsep=0pt,
+  leftmargin=1.2em,
+  label={\textbullet}
+}
+
+% ── Custom commands ───────────────────────────────────────────────────
+
+% Section heading with accent underline
+\newcommand{\cvsection}[1]{%
+  \vspace{6pt}%
+  {\large\bfseries\color{heading}\MakeUppercase{#1}}\\[-3pt]%
+  {\color{rulecolor}\rule{\linewidth}{1.2pt}}%
+  \vspace{3pt}\par}
+
+% Experience entry header
+\newcommand{\cventry}[2]{%
+  \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{#1} & {\small\textcolor{lightgray}{\faCalendar*\ #2}}
+  \end{tabularx}\vspace{0pt}}
+
+% Project entry header (category tag instead of date)
+\newcommand{\projentry}[2]{%
+  \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{#1} & {\small\textcolor{lightgray}{\faTag\ #2}}
+  \end{tabularx}\vspace{0pt}}
+
+% Sub-line for entry (company, link, etc.)
+\newcommand{\cvsubline}[1]{%
+  {\small\textcolor{graytext}{#1}}\par\vspace{1pt}}
+
+% Inline tech tag (light blue box)
+\newcommand{\tag}[1]{%
+  \tikz[baseline=(tag.base)]{%
+    \node[fill=tagbg, rounded corners=2pt, inner xsep=3pt, inner ysep=1pt]
+      (tag) {\scriptsize\textcolor{tagtext}{\strut#1}};%
+  }\hspace{0.5pt}}
+
+% Right-column skill category
+\newcommand{\skillcat}[2]{%
+  {\small\textbf{\textcolor{heading}{#1:}}\ %
+  {\footnotesize\textcolor{graytext}{#2}}}\par\vspace{2pt}}
+
+% Right-column certification
+\newcommand{\certentry}[3]{%
+  {\small\textbf{#1}}\\[-1pt]
+  {\footnotesize\textcolor{graytext}{#2}}\\[-1pt]
+  {\footnotesize\textcolor{lightgray}{\textit{#3}}}\par\vspace{4pt}}
+
+% Right-column education
+\newcommand{\eduentry}[4]{%
+  {\small\textbf{#1}}\\[-1pt]
+  {\footnotesize\textcolor{graytext}{#2}}\\[-1pt]
+  {\footnotesize\textcolor{lightgray}{\faCalendar*\ #3\quad\faMapMarker*\ #4}}\par\vspace{4pt}}
+
+% ══════════════════════════════════════════════════════════════════════
+\begin{document}
+\pagestyle{empty}
+
+% ══════════════════════════════════════════════════════════════════════
+%  HEADER — Full width (original style)
+% ══════════════════════════════════════════════════════════════════════
+\begin{center}
+  {\Huge\bfseries YASSIN NAJMI}\\[3pt]
+  {\large\bfseries\color{heading}
+     Engineering Student\ ---\ Ubiquitous \& Distributed Systems}\\[2pt]
+  {\small\textit{\textcolor{graytext}{%
+    Seeking PFE Internship
+    \enspace\textbar\enspace
+    Cloud \textbullet\ DevOps \textbullet\ IoT}}}\\[7pt]
+  {\small
+  \begin{tabular}{@{}lllll@{}}
+    \textcolor{accent}{\faEnvelope}\
+      \href{mailto:yassinnajmi5@gmail.com}{yassinnajmi5@gmail.com} &
+    \textcolor{accent}{\faPhone}\ +212 766 916 867 &
+    \textcolor{accent}{\faGlobe}\
+      \href{https://portfolio-ynj.vercel.app}{portfolio-ynj.vercel.app} &
+    \textcolor{accent}{\faLinkedin}\
+      \href{https://linkedin.com/in/yassin-najmi-ynj05}{linkedin/yassin-najmi-ynj05} &
+    \textcolor{accent}{\faMapMarker*}\ Rabat, Morocco
+  \end{tabular}}
+\end{center}
+
+\vspace{-4pt}
+{\color{rulecolor}\rule{\linewidth}{1.2pt}}
+
+\vspace{1pt}
+
+% ══════════════════════════════════════════════════════════════════════
+%  BODY — Two columns
+% ══════════════════════════════════════════════════════════════════════
+\noindent
+\begin{minipage}[t]{0.585\linewidth}
+
+% ── PROFILE ───────────────────────────────────────────────────────────
+\cvsection{Profile}
+
+\begin{itemize}[leftmargin=1.2em, topsep=0pt]
+  \item Engineering student at INPT (National Institute of Posts and
+        Telecommunications), specialising in Ubiquitous \& Distributed Systems,
+        Cloud \& IoT.
+  \item Passionate about Cloud, DevOps, and distributed computing.
+  \item Seeking a PFE internship (end-of-studies) to apply my skills and deepen
+        my knowledge.
+\end{itemize}
+
+% ── EXPERIENCE ────────────────────────────────────────────────────────
+\cvsection{Experience}
+
+\cventry{Cloud \& Full-Stack Engineer --- Synthèse Conseil}{Summer 2026}
+\cvsubline{AI-Powered Financial Forecasting Platform --- Remote}
+\noindent\small
+Contributed to the development of an AI-powered financial forecasting
+platform integrating with heterogeneous ERP systems. Developed RESTful APIs
+with ASP.NET Core and built Excel/CSV financial data import and validation
+pipelines. Architected a multi-tenant database with Entity Framework Core,
+normalizing accounting data into a standardized financial model. Integrated
+ML.NET forecasting pipelines and interactive dashboards for financial visualization.\\
+Stack~: ASP.NET Core, C\#, Entity Framework, PostgreSQL, React, Docker, ML.NET
+
+\vspace{4pt}
+
+\cventry{DevOps Engineering Intern --- S B SOLUTIONS MA}{Summer 2026}
+\cvsubline{Production Platform Deployment --- Remote}
+\noindent\small
+Managed VPS provisioning, Docker-based deployments, and configuration management
+for production applications. Established logging, monitoring, and deployment
+procedures to improve reliability across the software delivery lifecycle.\\
+Stack~: DevOps, CI/CD, Docker, VPS, Nginx, Linux, Git
+
+
+% ── PROJECTS ──────────────────────────────────────────────────────────
+\cvsection{Projects}
+
+\projentry{Microservices \& CI/CD Pipeline on AWS}{AWS / DevOps / Cloud}
+\noindent\small
+Migration of a monolithic Node.js application into two containerised microservices
+on AWS with a fully automated CI/CD pipeline and blue/green deployment
+with zero downtime.\\
+Stack~: Node.js, Docker, ECS Fargate, ECR, CodePipeline, CodeDeploy, ALB, RDS MySQL
+
+\vspace{4pt}
+
+\projentry{GreenTech SmartBin --- IoT Waste Management Platform}{IoT / AI}
+\noindent\small
+AIoT system for urban bin supervision: edge computing (Raspberry Pi +
+YOLOv11 ONNX), Azure pipeline (IoT Hub, Stream Analytics, Cosmos DB)
+and multi-profile web platform with route optimisation and Random Forest prediction.\\
+Stack~: Raspberry Pi, YOLOv11, MQTT, Azure IoT Hub, Cosmos DB, FastAPI, React, OSRM
+
+\vspace{4pt}
+
+\projentry{MyHeart --- Hospital Microservices System}{SOA}
+\noindent\small
+Hospital system built on 8 independent microservices with API Gateway,
+JWT authentication, Docker Compose deployment, React.js frontend
+and 63 end-to-end Postman tests.\\
+Stack~: Node.js, FastAPI, PostgreSQL, MongoDB, Docker, React.js, JWT
+
+\vspace{4pt}
+
+\projentry{Ai Consult --- Intelligent Hybrid Chatbot}{Distributed Systems / AI}
+\noindent\small
+Hybrid chatbot with intelligent routing to the most suitable local LLM model
+via Ollama (autonomy, privacy, extensibility). Android mobile application
+with manual model selection.\\
+Stack~: Ollama, LLM Routing, Android, REST API
+
+\vspace{4pt}
+
+\projentry{Student Success Prediction --- Data Mining}{ML / DL / AI}
+\noindent\small
+Data mining pipeline to predict academic success using Random Forest
+and Gradient Boosting with complete preprocessing (AUC = 0.963).\\
+Stack~: Python, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
+
+\end{minipage}%
+\hfill%
+% ══════════════════════════════════════════════════════════════════════
+%  RIGHT COLUMN
+% ══════════════════════════════════════════════════════════════════════
+\begin{minipage}[t]{0.39\linewidth}
+
+% ── EDUCATION ─────────────────────────────────────────────────────────
+\cvsection{Education}
+
+\eduentry{Engineering Degree --- Ubiquitous \& Distributed\\Systems, Cloud \& IoT}%
+  {National Institute of Posts and\\Telecommunications (INPT)}%
+  {Sept.\ 2024 -- Present}{Rabat}
+
+\eduentry{Preparatory Classes --- TSI}%
+  {Preparatory School, Safi}%
+  {Sept.\ 2022 -- May 2024}{Safi}
+
+\eduentry{High School Diploma --- Science \& Technology}%
+  {High School, Safi}%
+  {Jun.\ 2022}{Safi}
+
+% ── CERTIFICATIONS ────────────────────────────────────────────────────
+\cvsection{Certifications}
+
+\certentry{Oracle Cloud Infrastructure 2025}%
+  {Certified Foundations Associate}%
+  {Cloud, Compute, Networking, Storage, IAM}
+
+\certentry{AWS Academy Graduate}%
+  {Cloud Architecting}%
+  {AWS Best Practices, Building Infrastructure}
+
+\certentry{AWS Academy Graduate}%
+  {Microservices and CI/CD Pipeline Builder}%
+  {AWS CodePipeline, CD, CI, Microservices}
+
+% ── TECHNICAL SKILLS ──────────────────────────────────────────────────
+\cvsection{Technical Skills}
+
+\skillcat{Languages}{Python,\ Java,\ C\#,\ C,\ C++,\\
+  JavaScript,\ TypeScript,\ SQL,\ Bash}
+
+\skillcat{Web \& Backend}{NestJS,\ FastAPI,\ Node.js,\\
+  ASP.NET Core,\ React,\ REST API}
+
+\skillcat{Cloud \& DevOps}{OpenStack,\ OCI,\ Azure,\ AWS,\\
+  Docker,\ Kubernetes,\ Jenkins,\\
+  Kolla-Ansible,\ GitLab CI,\ GitHub Actions}
+
+\skillcat{Virtualisation \& Infra}{%
+  VMware ESXi,\ Hyper-V,\ VirtualBox,\\
+  KVM,\ High Availability,\ Ansible}
+
+\skillcat{IoT \& Embedded}{ESP32,\ MQTT,\ CoAP,\\
+  LoRaWAN,\ Arduino,\ OpenCV,\ YOLO}
+
+\skillcat{Systems \& Networks}{Linux,\ TCP/IP,\ DNS,\\
+  SSH,\ Nginx,\ Networking,\ Sysadmin}
+
+% ── LANGUAGES ─────────────────────────────────────────────────────────
+\cvsection{Languages}
+
+{\small
+\textbf{Arabic:}\ Native\\[2pt]
+\textbf{French:}\ Fluent\\[2pt]
+\textbf{English:}\ Professional\\[2pt]
+\textbf{Spanish:}\ Beginner\\[2pt]
+}
+
+\vfill
+
+% ── LINKS (bottom right) ─────────────────────────────────────────────
+\begin{center}
+  \vspace{4pt}
+  {\small\textcolor{accent}{\faLinkedin}\ \href{https://linkedin.com/in/yassin-najmi-ynj05}{\textcolor{graytext}{LinkedIn}}}%
+  \qquad
+  {\small\textcolor{accent}{\faGlobe}\ \href{https://portfolio-ynj.vercel.app}{\textcolor{graytext}{Website}}}
+\end{center}
+
+\end{minipage}
+
+\end{document}

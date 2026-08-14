@@ -156,7 +156,7 @@ export const experiences: Experience[] = [
     skills: ["ASP.NET Core", "C#", "Entity Framework", "PostgreSQL", "React", "TypeScript", "Docker", "ML.NET", "REST APIs"]
   },
   {
-    date: { fr: "Juin 2026 — Présent", en: "Jun 2026 — Present" },
+    date: { fr: "Juin — Juillet 2026", en: "Jun — Jul 2026" },
     role: {
       fr: "Stagiaire Ingénieur DevOps",
       en: "DevOps Engineering Intern"

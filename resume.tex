@@ -9,7 +9,7 @@
 % ── Packages ──────────────────────────────────────────────────────────
 \usepackage[left=0.55cm,right=0.55cm,top=0.45cm,bottom=0.4cm]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{ebgaramond}            % elegant professional serif font
+\usepackage{lmodern}               % clean, standard LaTeX font — no external files needed
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
@@ -50,16 +50,16 @@
   {\color{rulecolor}\rule{\linewidth}{1.2pt}}%
   \vspace{3pt}\par}
 
-% Experience entry header
+% Experience / Project entry header (title left, date right)
 \newcommand{\cventry}[2]{%
   \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
     \textbf{#1} & {\small\textcolor{lightgray}{\faCalendar*\ #2}}
   \end{tabularx}\vspace{0pt}}
 
-% Project entry header (category tag instead of date)
-\newcommand{\projentry}[2]{%
+% Entry header without a date (title left, category tag right)
+\newcommand{\entryheader}[2]{%
   \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & {\small\textcolor{lightgray}{\faTag\ #2}}
+    \textbf{#1} & {\small\textcolor{lightgray}{#2}}
   \end{tabularx}\vspace{0pt}}
 
 % Sub-line for entry (company, link, etc.)
@@ -95,7 +95,7 @@
 \pagestyle{empty}
 
 % ══════════════════════════════════════════════════════════════════════
-%  HEADER — Full width (original style)
+%  HEADER — Full width
 % ══════════════════════════════════════════════════════════════════════
 \begin{center}
   {\Huge\bfseries YASSIN NAJMI}\\[3pt]
@@ -105,7 +105,7 @@
     Seeking PFE Internship
     \enspace\textbar\enspace
     Cloud \textbullet\ DevOps \textbullet\ IoT}}}\\[7pt]
-  {\small
+  {\footnotesize
   \begin{tabular}{@{}lllll@{}}
     \textcolor{accent}{\faEnvelope}\
       \href{mailto:yassinnajmi5@gmail.com}{yassinnajmi5@gmail.com} &
@@ -134,10 +134,10 @@
 
 \begin{itemize}[leftmargin=1.2em, topsep=0pt]
   \item Engineering student at INPT (National Institute of Posts and
-        Telecommunications), specialising in Ubiquitous \& Distributed Systems,
-        Cloud \& IoT.
+        Telecommunications), specialising in \textbf{Ubiquitous \& Distributed Systems,
+        Cloud \& IoT}.
   \item Passionate about Cloud, DevOps, and distributed computing.
-  \item Seeking a PFE internship (end-of-studies) to apply my skills and deepen
+  \item Seeking a \textbf{PFE internship (end-of-studies)} to apply my skills and deepen
         my knowledge.
 \end{itemize}
 
@@ -146,70 +146,70 @@
 
 \cventry{Cloud \& Full-Stack Engineer --- Synthèse Conseil}{Summer 2026}
 \cvsubline{AI-Powered Financial Forecasting Platform --- Remote}
-\noindent\small
-Contributed to the development of an AI-powered financial forecasting
-platform integrating with heterogeneous ERP systems. Developed RESTful APIs
-with ASP.NET Core and built Excel/CSV financial data import and validation
-pipelines. Architected a multi-tenant database with Entity Framework Core,
-normalizing accounting data into a standardized financial model. Integrated
-ML.NET forecasting pipelines and interactive dashboards for financial visualization.\\
-Stack~: ASP.NET Core, C\#, Entity Framework, PostgreSQL, React, Docker, ML.NET
+\begin{itemize}
+  \item Contributed to the development of an AI-powered financial forecasting platform integrating with heterogeneous ERP systems.
+  \item Developed RESTful APIs with ASP.NET Core and built
+        Excel/CSV financial data import and validation pipelines.
+  \item Architected a multi-tenant database with Entity Framework Core,
+        normalizing accounting data into a standardized financial model.
+  \item Integrated ML.NET forecasting pipelines and interactive dashboards
+        for financial visualization.
+\end{itemize}
+\vspace{1pt}
+\tag{ASP.NET Core}\tag{C\#}\tag{Entity Framework}\tag{PostgreSQL}\tag{React}\tag{Docker}\tag{ML.NET}
 
 \vspace{4pt}
 
-\cventry{DevOps Engineering Intern --- S B SOLUTIONS MA}{Jun. -- Jul. 2026}
+\cventry{DevOps Engineering Intern --- S B SOLUTIONS MA}{Summer 2026}
 \cvsubline{Production Platform Deployment --- Remote}
-\noindent\small
-Managed VPS provisioning, Docker-based deployments, and configuration management
-for production applications. Established logging, monitoring, and deployment
-procedures to improve reliability across the software delivery lifecycle.\\
-Stack~: DevOps, CI/CD, Docker, VPS, Nginx, Linux, Git
+\begin{itemize}
+  \item Managed VPS provisioning, Docker-based deployments, and
+        configuration management for production applications.
+  \item Established logging, monitoring, and deployment procedures to improve
+        reliability across the software delivery lifecycle.
+\end{itemize}
+\vspace{1pt}
+\tag{DevOps}\tag{CI/CD}\tag{Docker}\tag{VPS}\tag{Nginx}\tag{Linux}\tag{Git}
 
 
 % ── PROJECTS ──────────────────────────────────────────────────────────
 \cvsection{Projects}
 
-\projentry{Microservices \& CI/CD Pipeline on AWS}{AWS / DevOps / Cloud}
+
+\entryheader{PFA --- Cloud Privé OpenStack}{Été 2025 \textbar\ INPT}
 \noindent\small
-Migration of a monolithic Node.js application into two containerised microservices
-on AWS with a fully automated CI/CD pipeline and blue/green deployment
-with zero downtime.\\
-Stack~: Node.js, Docker, ECS Fargate, ECR, CodePipeline, CodeDeploy, ALB, RDS MySQL
+Déploiement d'un cloud privé IaaS basé sur OpenStack Epoxy sur architecture multi-nœuds (Controller/Compute/Storage), ainsi qu'en environnement single-node via Kolla-Ansible.
+\begin{itemize}
+  \item Installation et configuration des services principaux : Keystone, Glance, Nova, Neutron, Cinder et Horizon.
+  \item Création et lancement d'instances virtuelles via réseau fournisseur.
+\end{itemize}
+\vspace{2pt}
+\textbf{Stack :} OpenStack, Keystone, Glance, Nova, Neutron, Cinder, Horizon, Linux, Kolla-Ansible, Docker
 
 \vspace{4pt}
 
-\projentry{GreenTech SmartBin --- IoT Waste Management Platform}{IoT / AI}
+\entryheader{Microservices \& Pipeline CI/CD sur AWS}{{AWS / DevOps / Cloud}}
 \noindent\small
-AIoT system for urban bin supervision: edge computing (Raspberry Pi +
-YOLOv11 ONNX), Azure pipeline (IoT Hub, Stream Analytics, Cosmos DB)
-and multi-profile web platform with route optimisation and Random Forest prediction.\\
-Stack~: Raspberry Pi, YOLOv11, MQTT, Azure IoT Hub, Cosmos DB, FastAPI, React, OSRM
+Migration d'une application monolithique Node.js vers \textbf{deux microservices conteneurisés}
+sur AWS avec pipeline CI/CD automatisée et déploiement \textbf{blue/green} sans interruption de service.\\
+\textbf{Stack :} Node.js, Docker, ECS Fargate, ECR, CodePipeline, CodeDeploy, ALB, RDS MySQL
 
 \vspace{4pt}
 
-\projentry{MyHeart --- Hospital Microservices System}{SOA}
+\entryheader{Ai Counsult --- Chatbot Hybride Intelligent}{Systèmes Distribués / IA}
 \noindent\small
-Hospital system built on 8 independent microservices with API Gateway,
-JWT authentication, Docker Compose deployment, React.js frontend
-and 63 end-to-end Postman tests.\\
-Stack~: Node.js, FastAPI, PostgreSQL, MongoDB, Docker, React.js, JWT
+Chatbot hybride avec \textbf{routage intelligent} vers le modèle LLM local le plus adapté
+via \textbf{Ollama} (autonomie, confidentialité, extensibilité). Application mobile Android
+avec sélection manuelle du modèle.\\
+\textbf{Stack :} Ollama, LLM Routing, Android, REST API
 
 \vspace{4pt}
 
-\projentry{Ai Consult --- Intelligent Hybrid Chatbot}{Distributed Systems / AI}
+\entryheader{Prédiction de la Réussite des Étudiants --- Data Mining}{ ML/DL/AI}
 \noindent\small
-Hybrid chatbot with intelligent routing to the most suitable local LLM model
-via Ollama (autonomy, privacy, extensibility). Android mobile application
-with manual model selection.\\
-Stack~: Ollama, LLM Routing, Android, REST API
-
-\vspace{4pt}
-
-\projentry{Student Success Prediction --- Data Mining}{ML / DL / AI}
-\noindent\small
-Data mining pipeline to predict academic success using Random Forest
-and Gradient Boosting with complete preprocessing (AUC = 0.963).\\
-Stack~: Python, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
+Pipeline de data mining pour prédire la réussite académique via \textbf{Random Forest}
+et \textbf{Gradient Boosting} avec prétraitement complet (\textbf{AUC = 0.963}).\\
+\textbf{Stack :} Python, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
 
 \end{minipage}%
 \hfill%
@@ -226,12 +226,12 @@ Stack~: Python, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
   {Sept.\ 2024 -- Present}{Rabat}
 
 \eduentry{Preparatory Classes --- TSI}%
-  {Preparatory School, Safi}%
+  {CPGE Safi}%
   {Sept.\ 2022 -- May 2024}{Safi}
 
-\eduentry{High School Diploma --- Science \& Technology}%
-  {High School, Safi}%
-  {Jun.\ 2022}{Safi}
+\eduentry{Baccalauréat --- Sciences \& Technologies}%
+  {Lycée Technique Qualifiant}%
+  {Jun.\ 2022}{Ben Guerir}
 
 % ── CERTIFICATIONS ────────────────────────────────────────────────────
 \cvsection{Certifications}

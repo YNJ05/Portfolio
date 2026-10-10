@@ -121,70 +121,68 @@ export const educations: Education[] = [
 ];
 
 export const experiences: Experience[] = [
-  {
-    date: { fr: "Juillet 2026 — Présent", en: "Jul 2026 — Present" },
-    role: {
-      fr: "Stagiaire Ingénieur Cloud & Full-Stack",
-      en: "Cloud & Full-Stack Software Engineer Intern"
-    },
-    org: { fr: "Synthèse Conseil", en: "Synthèse Conseil" },
-    type: { fr: "Stage", en: "Internship" },
-    location: { fr: "Maroc · À distance", en: "Morocco · Remote" },
-    linkedinUrl: "https://www.linkedin.com/company/synth%C3%A8se-conseil",
-    bullets: [
-      {
-        fr: "Contribution à la conception et au développement d'une plateforme de prévision financière alimentée par l'IA, intégrée à des systèmes ERP hétérogènes pour la prédiction de trésorerie et l'exécution budgétaire.",
-        en: "Contributing to the design and development of an AI-powered financial forecasting platform that integrates with heterogeneous ERP systems to provide cash flow and budget execution predictions."
-      },
-      {
-        fr: "Développement d'API RESTful avec ASP.NET Core et mise en place de pipelines d'import et de validation de données financières (Excel/CSV).",
-        en: "Developing RESTful APIs using ASP.NET Core and building Excel/CSV financial data import and validation pipelines."
-      },
-      {
-        fr: "Implémentation d'une architecture de base de données multi-tenant avec Entity Framework Core et normalisation des données comptables vers un modèle standardisé.",
-        en: "Implementing a multi-tenant database architecture with Entity Framework Core and normalizing accounting data into a standardized financial model."
-      },
-      {
-        fr: "Intégration de pipelines de prévision par machine learning (ML.NET) et développement de dashboards interactifs de visualisation financière.",
-        en: "Integrating machine learning forecasting pipelines using ML.NET and building interactive dashboards for financial visualization and reporting."
-      },
-      {
-        fr: "Conteneurisation des services avec Docker et Docker Compose, et contribution à l'automatisation CI/CD et au déploiement sur VPS.",
-        en: "Containerizing services using Docker and Docker Compose, and contributing to CI/CD workflows and VPS deployment automation."
-      }
-    ],
-    skills: ["ASP.NET Core", "C#", "Entity Framework", "PostgreSQL", "React", "TypeScript", "Docker", "ML.NET", "REST APIs"]
+
+{
+  date: {
+    fr: "Juillet 2026 — Août 2026",
+    en: "Jul 2026 — Aug 2026"
   },
-  {
-    date: { fr: "Juin — Juillet 2026", en: "Jun — Jul 2026" },
-    role: {
-      fr: "Stagiaire Ingénieur DevOps",
-      en: "DevOps Engineering Intern"
-    },
-    org: { fr: "S B SOLUTIONS MA", en: "S B SOLUTIONS MA" },
-    type: { fr: "Stage", en: "Internship" },
-    location: { fr: "Skhirat-Témara, Rabat-Salé-Kénitra · À distance", en: "Skhirat-Témara, Rabat-Salé-Kénitra · Remote" },
-    linkedinUrl: "https://www.linkedin.com/company/sbsolutionsma",
-    bullets: [
-      {
-        fr: "Contribution au déploiement et à l'infrastructure d'une plateforme prête pour la production en tant que stagiaire DevOps.",
-        en: "Contributing to the deployment and infrastructure of a production-ready platform as a DevOps Engineering Intern."
-      },
-      {
-        fr: "Préparation d'environnements, gestion de VPS, et déploiements basés sur Docker pour les applications de l'entreprise.",
-        en: "Responsible for environment preparation, VPS management, and Docker-based deployments for company applications."
-      },
-      {
-        fr: "Mise en place de la gestion de configuration, du logging, de la documentation technique et des procédures de déploiement.",
-        en: "Setting up configuration management, logging, technical documentation, and deployment procedures."
-      },
-      {
-        fr: "Collaboration avec des équipes transversales pour améliorer la fiabilité, l'automatisation et l'efficacité opérationnelle tout au long du cycle de livraison logicielle.",
-        en: "Collaborating with cross-functional teams to improve reliability, automation, and operational efficiency throughout the software delivery lifecycle."
-      }
-    ],
-    skills: ["DevOps", "CI/CD", "Docker", "VPS", "Nginx", "Linux", "Git"]
+  role: {
+    fr: "Stagiaire Full-Stack & DevOps",
+    en: "Full-Stack & DevOps Intern"
   },
+  org: {
+    fr: "Synthèse Conseil",
+    en: "Synthèse Conseil"
+  },
+  type: {
+    fr: "Stage",
+    en: "Internship"
+  },
+  location: {
+    fr: "Casablanca, Maroc",
+    en: "Casablanca, Morocco"
+  },
+  linkedinUrl: "https://www.linkedin.com/company/synth%C3%A8se-conseil",
+  bullets: [
+    {
+      fr: "Développement d'un portail d'entreprise et d'un espace client interconnectés à des systèmes ERP.",
+      en: "Developed an enterprise portal and a client workspace integrated with ERP systems."
+    },
+    {
+      fr: "Conception du backend avec Express, Prisma ORM et PostgreSQL selon la Clean Architecture, avec des API REST sécurisées et un contrôle d'accès par rôles (RBAC).",
+      en: "Designed the backend using Express, Prisma ORM, and PostgreSQL following Clean Architecture principles, with secure REST APIs and role-based access control (RBAC)."
+    },
+    {
+      fr: "Organisation de l'application en domaines découplés : authentification, facturation et paiements, et support IA.",
+      en: "Structured the application into decoupled domains covering authentication, billing and payments, and AI support."
+    },
+    {
+      fr: "Conteneurisation avec Docker et automatisation des tests et du déploiement grâce à un pipeline CI/CD avec GitHub Actions.",
+      en: "Containerized the application with Docker and automated testing and deployment through a GitHub Actions CI/CD pipeline."
+    },
+    {
+      fr: "Déploiement sur un cluster Kubernetes (K3s) et automatisation de la configuration avec Ansible.",
+      en: "Deployed the application to a Kubernetes (K3s) cluster and automated configuration using Ansible."
+    }
+  ],
+  skills: [
+    "Express",
+    "Prisma ORM",
+    "PostgreSQL",
+    "REST APIs",
+    "Clean Architecture",
+    "RBAC",
+    "Docker",
+    "GitHub Actions",
+    "Kubernetes (K3s)",
+    "Ansible",
+    "CI/CD",
+    "ERP Integration"
+  ]
+},
+
+ 
   {
     date: { fr: "Juillet — Août 2025", en: "Jul — Aug 2025" },
     role: {

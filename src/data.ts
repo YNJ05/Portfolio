@@ -183,42 +183,66 @@ export const experiences: Experience[] = [
 },
 
  
-  {
-    date: { fr: "Juillet — Août 2025", en: "Jul — Aug 2025" },
-    role: {
-      fr: "Stage PFA — Déploiement Cloud Privé OpenStack",
-      en: "PFA Internship — OpenStack Private Cloud Deployment"
+  
+{
+  date: {
+    fr: "Juillet — Août 2025",
+    en: "Jul — Aug 2025"
+  },
+  role: {
+    fr: "Stagiaire Cloud & Infrastructure — Déploiement OpenStack",
+    en: "Cloud & Infrastructure Intern — OpenStack Deployment"
+  },
+  org: {
+    fr: "Institut National des Postes et Télécommunications (INPT)",
+    en: "Institut National des Postes et Télécommunications (INPT)"
+  },
+  type: {
+    fr: "Stage PFA",
+    en: "PFA Internship"
+  },
+  location: {
+    fr: "Rabat, Maroc · Sur site",
+    en: "Rabat, Morocco · On-site"
+  },
+  
+  bullets: [
+    {
+      fr: "Déploiement d'une infrastructure de cloud privé IaaS basée sur OpenStack Epoxy, avec une architecture multi-nœuds.",
+      en: "Deployed a private IaaS cloud infrastructure based on OpenStack Epoxy using a multi-node architecture."
     },
-    org: {
-      fr: "Institut National des Postes et Télécommunications (INPT)",
-      en: "Institut National des Postes et Télécommunications (INPT)"
+    {
+      fr: "Mise en place d'un environnement de test mono-nœud avec Kolla-Ansible pour automatiser le déploiement des services OpenStack.",
+      en: "Set up a single-node test environment using Kolla-Ansible to automate OpenStack service deployment."
     },
-    type: { fr: "Stage", en: "Internship" },
-    location: { fr: "Rabat, Maroc · Sur site", en: "Rabat, Morocco · On-site" },
-    bullets: [
-      {
-        fr: "Conception et déploiement complet d'un cloud privé IaaS multi-nœuds basé sur OpenStack version Epoxy.",
-        en: "Designed and deployed a complete multi-node IaaS private cloud using OpenStack Epoxy."
-      },
-      {
-        fr: "Mise en œuvre d'une architecture multi-nœuds (Controller, Compute, Storage) et d'une configuration simplifiée single-node.",
-        en: "Implemented a multi-node architecture (Controller, Compute, Storage) as well as a simplified single-node layout."
-      },
-      {
-        fr: "Déploiement automatisé et conteneurisé des services via Kolla-Ansible sur serveurs Ubuntu.",
-        en: "Orchestrated containerized service deployment via Kolla-Ansible on Ubuntu servers."
-      },
-      {
-        fr: "Configuration et administration des services clés : Keystone (Identité), Nova (Calcul), Neutron (Réseau Provider), Cinder (Stockage par blocs), Glance (Images) et Horizon (Dashboard).",
-        en: "Configured and administered key services: Keystone (Identity), Nova (Compute), Neutron (Provider Network), Cinder (Block Storage), Glance (Images), and Horizon (Web Dashboard)."
-      },
-      {
-        fr: "Lancement, configuration réseau et vérification d'instances virtuelles Ubuntu 24.04 et Cirros avec accès SSH sécurisé.",
-        en: "Launched, network-configured, and validated virtual instances of Ubuntu 24.04 and Cirros with secure SSH access."
-      }
-    ],
-    skills: ["OpenStack", "Kolla-Ansible", "Ansible", "Docker", "Ubuntu Server", "VirtualBox", "Networks"]
-  }
+    {
+      fr: "Configuration des services principaux : Keystone (identité), Glance (images), Nova (calcul), Neutron (réseau), Cinder (stockage par blocs) et Horizon (interface Web).",
+      en: "Configured core services: Keystone (identity), Glance (images), Nova (compute), Neutron (networking), Cinder (block storage), and Horizon (web dashboard)."
+    },
+    {
+      fr: "Création et gestion de machines virtuelles, avec configuration des réseaux fournisseurs (Provider Networks) et vérification de la connectivité.",
+      en: "Created and managed virtual machines, configured provider networks, and verified network connectivity."
+    },
+    {
+      fr: "Prise en main de l'administration d'une infrastructure Cloud sous Ubuntu Server et des outils d'automatisation associés.",
+      en: "Gained hands-on experience administering a cloud infrastructure on Ubuntu Server and working with related automation tools."
+    }
+  ],
+  skills: [
+    "OpenStack Epoxy",
+    "Kolla-Ansible",
+    "Ansible",
+    "Ubuntu Server",
+    "Linux",
+    "Cloud IaaS",
+    "Virtual Machines",
+    "Neutron",
+    "Provider Networks",
+    "Cloud Infrastructure"
+  ]
+},
+
+ 
 ];
 
 export const projects: Project[] = [

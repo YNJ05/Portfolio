@@ -1785,7 +1785,9 @@ export default function App() {
       {/* Mobile Floating Bottom Dock Navigation */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 md:hidden w-[calc(100%-36px)] max-w-[360px] h-14 px-1.5 rounded-full bg-[#0d0e12]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] flex items-center justify-between"
+        className={`fixed bottom-5 left-1/2 -translate-x-1/2 z-50 md:hidden w-[calc(100%-32px)] max-w-sm h-16 px-3 flex items-center justify-between rounded-full border transition-all duration-300 ${
+          theme === "dark" ? "glass-nav-dark shadow-black/45" : "glass-nav-light shadow-sky-900/5"
+        }`}
       >
         {[
           { id: "profile", icon: User, label: { fr: "Profil", en: "Profile" }, match: ["profile", "experience"] },
@@ -1809,7 +1811,9 @@ export default function App() {
                       initial={{ opacity: 0, y: 8, scale: 0.85 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 5, scale: 0.85 }}
-                      className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 text-[10px] font-semibold bg-neutral-900/95 border border-white/15 text-white rounded-full shadow-lg pointer-events-none z-20 backdrop-blur-md"
+                      className={`absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-[11px] font-semibold rounded-full shadow-lg border pointer-events-none z-20 ${
+                        theme === "dark" ? "glass-nav-dark text-white border-white/15" : "glass-nav-light text-neutral-900 border-black/10"
+                      }`}
                     >
                       {lang === "fr" ? "Photo de profil" : "Profile photo"}
                     </motion.div>
@@ -1819,7 +1823,9 @@ export default function App() {
                 {isActive && (
                   <motion.div
                     layoutId="mobileActiveTab"
-                    className="absolute inset-x-1.5 inset-y-1.5 rounded-full bg-white/10 border border-white/15 shadow-sm -z-10"
+                    className={`absolute inset-x-1 inset-y-2 rounded-full border shadow-sm -z-10 ${
+                      theme === "dark" ? "bg-white/10 border-white/15" : "bg-white border-black/10"
+                    }`}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -1838,7 +1844,9 @@ export default function App() {
                 >
                   <Icon
                     className={`w-5 h-5 transition-colors duration-200 ${
-                      isActive ? "text-sky-400" : "text-neutral-400 hover:text-white"
+                      isActive
+                        ? "text-sky-400"
+                        : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
                     }`}
                   />
                 </button>
@@ -1859,14 +1867,18 @@ export default function App() {
               {isActive && (
                 <motion.div
                   layoutId="mobileActiveTab"
-                  className="absolute inset-x-1.5 inset-y-1.5 rounded-full bg-white/10 border border-white/15 shadow-sm -z-10"
+                  className={`absolute inset-x-1 inset-y-2 rounded-full border shadow-sm -z-10 ${
+                    theme === "dark" ? "bg-white/10 border-white/15" : "bg-white border-black/10"
+                  }`}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
 
               <Icon
                 className={`w-5 h-5 transition-colors duration-200 ${
-                  isActive ? "text-sky-400" : "text-neutral-400 hover:text-white"
+                  isActive
+                    ? "text-sky-400"
+                    : theme === "dark" ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
                 }`}
               />
             </button>

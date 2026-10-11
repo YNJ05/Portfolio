@@ -266,7 +266,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/OpenStack-Epoxy-Deployment",
       demo: "https://horizon.ynj-cloud.net",
-      report: "assets/OpenStack.pdf"
+      report: "assets/reports/OpenStack.pdf"
     }
   },
   {
@@ -289,7 +289,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/aws-ecs-microservices-cicd",
       demo: "https://alb.ynj-cloud.net",
-      report: "assets/architectures_et_middlewares.pdf"
+      report: "assets/reports/architectures_et_middlewares.pdf"
     }
   },
   {
@@ -312,7 +312,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/GreenTech-SmartBin",
       demo: "https://smartbin.ynj-cloud.net",
-      report: "assets/SmartBin.pdf"
+      report: "assets/reports/SmartBin.pdf"
     }
   },
   {
@@ -335,7 +335,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/MyHeart-Project",
       demo: "https://myheart.ynj-cloud.net",
-      report: "assets/MyHeart_RAPPORT.pdf"
+      report: "assets/reports/MyHeart_RAPPORT.pdf"
     }
   },
   {
@@ -358,7 +358,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/Ai-Counsult",
       demo: "https://ai-consult.ynj-cloud.net",
-      report: "assets/chatbot-1.pdf"
+      report: "assets/reports/chatbot-1.pdf"
     }
   },
   {
@@ -425,7 +425,7 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/Grass-Cutter-Robot",
       demo: "https://github.com/YNJ05/Grass-Cutter-Robot",
-      report: "assets/GrassCutterRobot.pdf"
+      report: "assets/reports/GrassCutterRobot.pdf"
     }
   },
   {
@@ -448,18 +448,18 @@ export const projects: Project[] = [
     links: {
       code: "https://github.com/YNJ05/ESXi-AD-FailoverCluster",
       demo: "https://github.com/YNJ05/ESXi-AD-FailoverCluster",
-      report: "assets/VIRTUALISATION.pdf"
+      report: "assets/reports/VIRTUALISATION.pdf"
     }
   }
 ];
 
 export const certifications: Certification[] = [
   {
-    name: "AWS Academy Graduate — Microservices and CI/CD Pipeline Builder",
+    name: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services (AWS)",
-    date: { fr: "Avril 2026", en: "April 2026" },
-    skills: "AWS CodePipeline, AWS CodeDeploy, Amazon ECS, Docker, Microservices.",
-    url: "assets/AWS Academy Graduate — Cloud Architecting.png",
+    date: { fr: "2026", en: "2026" },
+    skills: "Cloud Concepts, AWS Core Services, Security, Pricing, Architecture.",
+    url: "https://www.credly.com/badges/c101c6d6-a291-4c28-b4a5-12d6866f4e4d",
     logo: "AWS"
   },
   {
@@ -467,7 +467,15 @@ export const certifications: Certification[] = [
     issuer: "Amazon Web Services (AWS)",
     date: { fr: "Avril 2026", en: "April 2026" },
     skills: "Architecting Solutions on AWS, Cloud Security, Computing, Storage, Database, Networks.",
-    url: "assets/AWS Academy Graduate — Cloud Architecting.png",
+    url: "assets/certifications/AWS Academy Graduate — Cloud Architecting.png",
+    logo: "AWS"
+  },
+  {
+    name: "AWS Academy Graduate — Microservices and CI/CD Pipeline Builder",
+    issuer: "Amazon Web Services (AWS)",
+    date: { fr: "Avril 2026", en: "April 2026" },
+    skills: "AWS CodePipeline, AWS CodeDeploy, Amazon ECS, Docker, Microservices.",
+    url: "assets/certifications/AWS Academy Graduate — Cloud Architecting.png",
     logo: "AWS"
   },
   {
@@ -475,7 +483,15 @@ export const certifications: Certification[] = [
     issuer: "Oracle",
     date: { fr: "Novembre 2025", en: "November 2025" },
     skills: "Cloud Foundations, Compute, Storage, Networking, IAM, OCI Services.",
-    url: "assets/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png",
+    url: "assets/certifications/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png",
+    logo: "Oracle"
+  },
+  {
+    name: "Oracle Cloud Infrastructure 2025 Certified Architect Associate",
+    issuer: "Oracle",
+    date: { fr: "2025", en: "2025" },
+    skills: "OCI Architecture, Compute, Networking, Storage, Database, Security, Governance.",
+    url: "assets/certifications/Oracle Cloud Infrastructure Certified Architect Associate.png",
     logo: "Oracle"
   }
 ];

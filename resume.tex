@@ -1,15 +1,13 @@
 % ══════════════════════════════════════════════════════════════════════
-%  CV — YASSIN NAJMI · Tailored for Oracle Morocco R&D — PFE 2027
-%  Clean two-column layout · pdfLaTeX
+% CV — YASSIN NAJMI (Format rempli - 1 Page)
+% Police : Source Sans Pro
+% Compilation : pdfLaTeX / XeLaTeX
 % ══════════════════════════════════════════════════════════════════════
 
-% !TEX root = relative/or/absolute/path/to/root/file.tex
-\documentclass[10pt,a4paper]{article}
+\documentclass[10.5pt,a4paper]{article}
 
 % ── Packages ──────────────────────────────────────────────────────────
-\usepackage[left=0.55cm,right=0.55cm,top=0.45cm,bottom=0.4cm]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}               % clean, standard LaTeX font — no external files needed
+\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.3cm]{geometry}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
@@ -18,278 +16,279 @@
 \usepackage{microtype}
 \usepackage{fontawesome5}
 \usepackage{tikz}
-\usepackage{ragged2e}
+\usepackage{graphicx}
 
-% ── Colours (dark blue accent) ────────────────────────────────────────
-\definecolor{heading}{RGB}{20, 66, 114}       % dark navy headings
-\definecolor{accent}{RGB}{20, 66, 114}        % dark navy accent
-\definecolor{linkblue}{RGB}{20, 66, 114}      % dark navy links
-\definecolor{graytext}{RGB}{80, 80, 80}       % dark gray body text
-\definecolor{lightgray}{RGB}{120, 120, 120}   % medium gray
-\definecolor{tagbg}{RGB}{200, 218, 240}       % muted blue tag background
-\definecolor{tagtext}{RGB}{20, 66, 114}       % dark navy tag text
-\definecolor{rulecolor}{RGB}{20, 66, 114}     % dark navy rules
+% ── Police : Source Sans Pro ─────────────────────────────────────────
+% Alternative si indisponible : \usepackage[sfdefault]{carlito}
+\usepackage[T1]{fontenc}
+\usepackage[default]{sourcesanspro}
+\renewcommand{\familydefault}{\sfdefault}
 
-\hypersetup{colorlinks=true, urlcolor=linkblue, linkcolor=accent}
-\setlength{\parskip}{0pt}
-\setlength{\parindent}{0pt}
+% ── Couleurs ──────────────────────────────────────────────────────────
+\definecolor{heading}{RGB}{28, 49, 138}
+\definecolor{accent}{RGB}{28, 49, 138}
+\definecolor{linkblue}{RGB}{28, 49, 138}
+\definecolor{graytext}{RGB}{70, 70, 70}
+\definecolor{lightgray}{RGB}{115, 115, 115}
+\definecolor{rulecolor}{RGB}{28, 49, 138}
 
-% ── List style ────────────────────────────────────────────────────────
-\setlist[itemize]{
-  noitemsep, topsep=1pt, parsep=0pt,
-  leftmargin=1.2em,
-  label={\textbullet}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkblue,
+  linkcolor=accent
 }
 
-% ── Custom commands ───────────────────────────────────────────────────
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\linespread{1.15} % Augmentation de l'interligne pour remplir la page
 
-% Section heading with accent underline
+% ── Style des listes ──────────────────────────────────────────────────
+\setlist[itemize]{
+  noitemsep,
+  topsep=2pt,
+  parsep=0pt,
+  partopsep=0pt,
+  leftmargin=1.2em,
+  label={\small\textbullet}
+}
+
+% ── Commandes personnalisées ──────────────────────────────────────────
 \newcommand{\cvsection}[1]{%
-  \vspace{6pt}%
-  {\large\bfseries\color{heading}\MakeUppercase{#1}}\\[-3pt]%
+  \vspace{8pt}%
+  {\large\bfseries\color{heading}\MakeUppercase{#1}}\\[-2pt]%
   {\color{rulecolor}\rule{\linewidth}{1.2pt}}%
-  \vspace{3pt}\par}
+  \vspace{4pt}\par
+}
 
-% Experience / Project entry header (title left, date right)
-\newcommand{\cventry}[2]{%
-  \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & {\small\textcolor{lightgray}{\faCalendar*\ #2}}
-  \end{tabularx}\vspace{0pt}}
-
-% Entry header without a date (title left, category tag right)
 \newcommand{\entryheader}[2]{%
-  \noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & {\small\textcolor{lightgray}{#2}}
-  \end{tabularx}\vspace{0pt}}
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{\normalsize #1} & {\small\textcolor{lightgray}{#2}}
+  \end{tabularx}\vspace{-1pt}
+}
 
-% Sub-line for entry (company, link, etc.)
 \newcommand{\cvsubline}[1]{%
-  {\small\textcolor{graytext}{#1}}\par\vspace{1pt}}
+  {\normalsize\textbf{\textcolor{accent}{#1}}}\par\vspace{2pt}
+}
 
-% Inline tech tag (light blue box)
-\newcommand{\tag}[1]{%
-  \tikz[baseline=(tag.base)]{%
-    \node[fill=tagbg, rounded corners=2pt, inner xsep=3pt, inner ysep=1pt]
-      (tag) {\scriptsize\textcolor{tagtext}{\strut#1}};%
-  }\hspace{0.5pt}}
-
-% Right-column skill category
-\newcommand{\skillcat}[2]{%
-  {\small\textbf{\textcolor{heading}{#1:}}\ %
-  {\footnotesize\textcolor{graytext}{#2}}}\par\vspace{2pt}}
-
-% Right-column certification
-\newcommand{\certentry}[3]{%
-  {\small\textbf{#1}}\\[-1pt]
-  {\footnotesize\textcolor{graytext}{#2}}\\[-1pt]
-  {\footnotesize\textcolor{lightgray}{\textit{#3}}}\par\vspace{4pt}}
-
-% Right-column education
 \newcommand{\eduentry}[4]{%
-  {\small\textbf{#1}}\\[-1pt]
-  {\footnotesize\textcolor{graytext}{#2}}\\[-1pt]
-  {\footnotesize\textcolor{lightgray}{\faCalendar*\ #3\quad\faMapMarker*\ #4}}\par\vspace{4pt}}
+  {\normalsize\textbf{#1}}\\[0.5pt]
+  {\normalsize\textbf{\textcolor{accent}{#2}}}\\[1pt]
+  {\small\textcolor{lightgray}{\faCalendar*\ #3\quad\faMapMarker*\ #4}}\par\vspace{6pt}
+}
+
+\newcommand{\skilltag}[1]{%
+  \tikz[baseline=(text.base)]{
+    \node[
+      draw=black!35,
+      line width=0.4pt,
+      fill=white,
+      rounded corners=3pt,
+      inner xsep=5pt,
+      inner ysep=2.5pt,
+      text=black,
+      font=\footnotesize
+    ] (text) {#1};
+  }%
+}
 
 % ══════════════════════════════════════════════════════════════════════
 \begin{document}
 \pagestyle{empty}
 
-% ══════════════════════════════════════════════════════════════════════
-%  HEADER — Full width
-% ══════════════════════════════════════════════════════════════════════
-\begin{center}
-  {\Huge\bfseries YASSIN NAJMI}\\[3pt]
-  {\large\bfseries\color{heading}
-     Engineering Student\ ---\ Ubiquitous \& Distributed Systems}\\[2pt]
-  {\small\textit{\textcolor{graytext}{%
-    Seeking PFE Internship
-    \enspace\textbar\enspace
-    Cloud \textbullet\ DevOps \textbullet\ IoT}}}\\[7pt]
-  {\footnotesize
-  \begin{tabular}{@{}lllll@{}}
-    \textcolor{accent}{\faEnvelope}\
-      \href{mailto:yassinnajmi5@gmail.com}{yassinnajmi5@gmail.com} &
-    \textcolor{accent}{\faPhone}\ +212 766 916 867 &
-    \textcolor{accent}{\faGlobe}\
-      \href{https://portfolio-ynj.vercel.app}{portfolio-ynj.vercel.app} &
-    \textcolor{accent}{\faLinkedin}\
-      \href{https://linkedin.com/in/yassin-najmi-ynj05}{linkedin/yassin-najmi-ynj05} &
-    \textcolor{accent}{\faMapMarker*}\ Rabat, Morocco
-  \end{tabular}}
-\end{center}
-
-\vspace{-4pt}
-{\color{rulecolor}\rule{\linewidth}{1.2pt}}
-
-\vspace{1pt}
-
-% ══════════════════════════════════════════════════════════════════════
-%  BODY — Two columns
-% ══════════════════════════════════════════════════════════════════════
+% ── HEADER (Avec Photo) ───────────────────────────────────────────────
 \noindent
-\begin{minipage}[t]{0.585\linewidth}
+\begin{minipage}[c]{0.75\linewidth}
+  {\bfseries\fontsize{24}{28}\selectfont YASSIN NAJMI}\\[4pt]
+  {\normalsize\bfseries\color{heading}
+     Ubiquitous and Distributed Systems Engineering Student — Cloud \& IoT.\\[1.5pt]
+     Seeking a final-year internship (PFE).}\\[7pt]
+  {\small
+\begin{tabular}{@{}lllll@{}}
+  \textcolor{accent}{\faEnvelope}\ \href{mailto:yassinnajmi5@gmail.com}{yassinnajmi5@gmail.com} &
+  \textcolor{accent}{\faPhone}\ +212 766 916 867 &
+  \textcolor{accent}{\faMapMarker}\  Morocco &
+  \textcolor{accent}{\faGlobe}\ \href{https://yassinnajmi.vercel.app/}{portfolio} &
+  \textcolor{accent}{\faLinkedin}\ \href{https://linkedin.com/in/yassinnajmi}{yassinnajmi}
+\end{tabular}}
+
+  
+\end{minipage}%
+\begin{minipage}[c]{0.25\linewidth}
+  \begin{flushright}
+    % Agrandissement léger de l'espace photo
+    \begin{tikzpicture}
+      \clip (0,0) circle (1.6cm);
+      \node at (0,0) {\includegraphics[width=3.6cm]{photo.png}}; 
+    \end{tikzpicture}
+  \end{flushright}
+\end{minipage}
+
+\vspace{-2pt}
+
+% ── CORPS DU CV — Deux colonnes ───────────────────────────────────────
+\noindent
+\begin{minipage}[t]{0.64\linewidth}
+\vspace{-2pt}
+
 
 % ── PROFILE ───────────────────────────────────────────────────────────
 \cvsection{Profile}
+\begin{itemize}[leftmargin=1em, topsep=0pt]
+  \item Final-year engineering student at INPT, specialising in \textbf{Cloud Computing and DevOps}, with hands-on experience in OpenStack, AWS, Docker, Kubernetes, Ansible and CI/CD automation.
 
-\begin{itemize}[leftmargin=1.2em, topsep=0pt]
-  \item Engineering student at INPT (National Institute of Posts and
-        Telecommunications), specialising in \textbf{Ubiquitous \& Distributed Systems,
-        Cloud \& IoT}.
-  \item Passionate about Cloud, DevOps, and distributed computing.
-  \item Seeking a \textbf{PFE internship (end-of-studies)} to apply my skills and deepen
-        my knowledge.
+  \item Seeking a \textbf{PFE internship in Cloud \& DevOps} to design, deploy and automate scalable cloud infrastructures and AI-powered solutions, focusing on reliability, performance and automation.
 \end{itemize}
+% ---------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
-% ── EXPERIENCE ────────────────────────────────────────────────────────
-\cvsection{Experience}
+% ── EXPERIENCE & PROJECTS ─────────────────────────────────────────────
+\cvsection{Experience \& Projects}
 
-\cventry{Cloud \& Full-Stack Engineer --- Synthèse Conseil}{Summer 2026}
-\cvsubline{AI-Powered Financial Forecasting Platform --- Remote}
+\entryheader{2nd-Year Internship --- Full-Stack \& DevOps Intern}{}
+\cvsubline{Synthèse Conseil \hfill {\small\normalfont\textcolor{lightgray}{\faCalendar*\ July 2026 -- August 2026}}}
 \begin{itemize}
-  \item Contributed to the development of an AI-powered financial forecasting platform integrating with heterogeneous ERP systems.
-  \item Developed RESTful APIs with ASP.NET Core and built
-        Excel/CSV financial data import and validation pipelines.
-  \item Architected a multi-tenant database with Entity Framework Core,
-        normalizing accounting data into a standardized financial model.
-  \item Integrated ML.NET forecasting pipelines and interactive dashboards
-        for financial visualization.
+\item Designed and developed an enterprise web portal integrating client collaborative spaces, admin back-office, and ERP connectivity.
+\item Built the backend with Express and Prisma ORM, exposing modular RESTful APIs, authentication, and Role-Based Access Control (RBAC).
+\item Containerized the application using Docker and established a continuous CI/CD pipeline with GitHub Actions to automate building, testing and deployment.
+\item Deployed the application on a Kubernetes (K3s) cluster and automated deployment and configuration tasks using Ansible.
 \end{itemize}
-\vspace{1pt}
-\tag{ASP.NET Core}\tag{C\#}\tag{Entity Framework}\tag{PostgreSQL}\tag{React}\tag{Docker}\tag{ML.NET}
 
 \vspace{4pt}
 
-\cventry{DevOps Engineering Intern --- S B SOLUTIONS MA}{Summer 2026}
-\cvsubline{Production Platform Deployment --- Remote}
+
+\entryheader{1st-Year Internship --- Private Cloud --- OpenStack}{}
+\cvsubline{INPT \hfill {\small\normalfont\textcolor{lightgray}{\faCalendar*\ July 2025 -- August 2025}}}
 \begin{itemize}
-  \item Managed VPS provisioning, Docker-based deployments, and
-        configuration management for production applications.
-  \item Established logging, monitoring, and deployment procedures to improve
-        reliability across the software delivery lifecycle.
+\item Deployed a private cloud infrastructure based on OpenStack (Epoxy) across a multi-node architecture.
+\item Set up and configured a single-node testing environment using Kolla-Ansible.
+\item Configured core OpenStack services: Keystone, Glance, Nova, Neutron, Cinder, and Horizon.
+\item Provisioned and managed virtual machine instances using provider network configurations.
 \end{itemize}
-\vspace{1pt}
-\tag{DevOps}\tag{CI/CD}\tag{Docker}\tag{VPS}\tag{Nginx}\tag{Linux}\tag{Git}
 
 
-% ── PROJECTS ──────────────────────────────────────────────────────────
-\cvsection{Projects}
+\vspace{4pt}
 
-
-\entryheader{PFA --- Cloud Privé OpenStack}{Été 2025 \textbar\ INPT}
-\noindent\small
-Déploiement d'un cloud privé IaaS basé sur OpenStack Epoxy sur architecture multi-nœuds (Controller/Compute/Storage), ainsi qu'en environnement single-node via Kolla-Ansible.
+\entryheader{Cloud Project --- Microservices on AWS}{}
+\cvsubline{INPT \hfill {\small\normalfont\textcolor{lightgray}{\faCalendar*\ 2026}}}
 \begin{itemize}
-  \item Installation et configuration des services principaux : Keystone, Glance, Nova, Neutron, Cinder et Horizon.
-  \item Création et lancement d'instances virtuelles via réseau fournisseur.
+  \item Refactored a monolithic Node.js application into microservices, containerized and deployed on AWS ECS Fargate.
+  \item Implemented Application Load Balancer routing and set up automated deployments with CodePipeline and CodeDeploy.
 \end{itemize}
-\vspace{2pt}
-\textbf{Stack :} OpenStack, Keystone, Glance, Nova, Neutron, Cinder, Horizon, Linux, Kolla-Ansible, Docker
+
 
 \vspace{4pt}
 
-\entryheader{Microservices \& Pipeline CI/CD sur AWS}{{AWS / DevOps / Cloud}}
-\noindent\small
-Migration d'une application monolithique Node.js vers \textbf{deux microservices conteneurisés}
-sur AWS avec pipeline CI/CD automatisée et déploiement \textbf{blue/green} sans interruption de service.\\
-\textbf{Stack :} Node.js, Docker, ECS Fargate, ECR, CodePipeline, CodeDeploy, ALB, RDS MySQL
+\entryheader{Multi-Agent AI Chatbot}{}
+\cvsubline{INPT \hfill {\small\normalfont\textcolor{lightgray}{\faCalendar*\ 2026}}}
+\begin{itemize}
+  \item Developed an intelligent chatbot platform composed of a web application, Android mobile app, and scalable backend.
+  \item Implemented user management and multi-agent AI routing with automated response synthesis.
+\end{itemize}
+
 
 \vspace{4pt}
 
-\entryheader{Ai Counsult --- Chatbot Hybride Intelligent}{Systèmes Distribués / IA}
-\noindent\small
-Chatbot hybride avec \textbf{routage intelligent} vers le modèle LLM local le plus adapté
-via \textbf{Ollama} (autonomie, confidentialité, extensibilité). Application mobile Android
-avec sélection manuelle du modèle.\\
-\textbf{Stack :} Ollama, LLM Routing, Android, REST API
+\entryheader{SmartBin --- IoT \& Cloud Solution}{}
+\cvsubline{INPT \hfill {\small\normalfont\textcolor{lightgray}{\faCalendar*\ 2025 -- 2026}}}
+\begin{itemize}
+  \item IoT Architecture: Waste collection system with Raspberry Pi, ultrasonic sensors, and servomotors.
+  \item Cloud Data: Real-time telemetry routed via Azure IoT Hub, Stream Analytics, and Cosmos DB.
+  \item AI Analytics: Bin saturation forecasting (FastAPI) and dynamic route optimization via OSRM.
+\end{itemize}
 
-\vspace{4pt}
 
-\entryheader{Prédiction de la Réussite des Étudiants --- Data Mining}{ ML/DL/AI}
-\noindent\small
-Pipeline de data mining pour prédire la réussite académique via \textbf{Random Forest}
-et \textbf{Gradient Boosting} avec prétraitement complet (\textbf{AUC = 0.963}).\\
-\textbf{Stack :} Python, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
 
 \end{minipage}%
 \hfill%
-% ══════════════════════════════════════════════════════════════════════
-%  RIGHT COLUMN
-% ══════════════════════════════════════════════════════════════════════
-\begin{minipage}[t]{0.39\linewidth}
+\begin{minipage}[t]{0.33\linewidth}
+\vspace{0pt}
 
 % ── EDUCATION ─────────────────────────────────────────────────────────
 \cvsection{Education}
 
-\eduentry{Engineering Degree --- Ubiquitous \& Distributed\\Systems, Cloud \& IoT}%
-  {National Institute of Posts and\\Telecommunications (INPT)}%
-  {Sept.\ 2024 -- Present}{Rabat}
+\eduentry{Engineering Degree: Ubiquitous and Distributed Systems, Cloud \& IoT}%
+  {INPT (National Institute of Posts and Telecommunications)}%
+  {Sept. 2024 -- Present}{Rabat, Morocco}
 
-\eduentry{Preparatory Classes --- TSI}%
+\eduentry{Preparatory Classes for Engineering Schools (CPGE) --- TSI}%
   {CPGE Safi}%
-  {Sept.\ 2022 -- May 2024}{Safi}
-
-\eduentry{Baccalauréat --- Sciences \& Technologies}%
-  {Lycée Technique Qualifiant}%
-  {Jun.\ 2022}{Ben Guerir}
+  {Sept. 2022 -- May 2024}{Safi, Morocco}
 
 % ── CERTIFICATIONS ────────────────────────────────────────────────────
 \cvsection{Certifications}
 
-\certentry{Oracle Cloud Infrastructure 2025}%
-  {Certified Foundations Associate}%
-  {Cloud, Compute, Networking, Storage, IAM}
+{\normalsize\textbf{AWS Certified}}\par\vspace{1.5pt}
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+  \item \textbf{Cloud Practitioner} 
+  \item \textbf{AWS Academy -- Cloud Architecting }
+\end{itemize}
 
-\certentry{AWS Academy Graduate}%
-  {Cloud Architecting}%
-  {AWS Best Practices, Building Infrastructure}
-
-\certentry{AWS Academy Graduate}%
-  {Microservices and CI/CD Pipeline Builder}%
-  {AWS CodePipeline, CD, CI, Microservices}
-
+\vspace{8pt}
+{\normalsize\textbf{Oracle Cloud Infrastructure}}\par\vspace{1.5pt}
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+    \item \textbf{Certified Foundations Associate}
+    \item \textbf{Certified Architect Associate}
+\end{itemize}
 % ── TECHNICAL SKILLS ──────────────────────────────────────────────────
-\cvsection{Technical Skills}
+\cvsection{Skills}
 
-\skillcat{Languages}{Python,\ Java,\ C\#,\ C,\ C++,\\
-  JavaScript,\ TypeScript,\ SQL,\ Bash}
+{\small\textbf{Programming:}}\par\vspace{3pt}
+\noindent
+\skilltag{JavaScript}\hspace{2pt}%
+\skilltag{Python}\hspace{2pt}%
+\skilltag{Bash}\hspace{2pt}%
+\skilltag{Java}\hspace{2pt}%
+\skilltag{C/C++}\hspace{2pt}%
+\skilltag{SQL}\par\vspace{5pt}
 
-\skillcat{Web \& Backend}{NestJS,\ FastAPI,\ Node.js,\\
-  ASP.NET Core,\ React,\ REST API}
+{\small\textbf{Cloud \& Platforms:}}\par\vspace{3pt}
+\noindent
+\skilltag{OpenStack}\hspace{2pt}%
+\skilltag{AWS}\hspace{2pt}%
+\skilltag{Azure}\hspace{2pt}%
+\skilltag{OCI}\hspace{2pt}%
+\skilltag{GCP}\hspace{2pt}%
+\skilltag{Kubernetes }\hspace{2pt}%
+\skilltag{Docker}\par\vspace{5pt}
 
-\skillcat{Cloud \& DevOps}{OpenStack,\ OCI,\ Azure,\ AWS,\\
-  Docker,\ Kubernetes,\ Jenkins,\\
-  Kolla-Ansible,\ GitLab CI,\ GitHub Actions}
+{\small\textbf{Infrastructure \& Delivery:}}\par\vspace{3pt}
+\noindent
+\skilltag{Terraform}\hspace{2pt}%
+\skilltag{Ansible}\hspace{2pt}%
+\skilltag{GitHub Actions}\hspace{2pt}%
+\skilltag{GitLab CI}\hspace{2pt}%
+\skilltag{Jenkins}\hspace{2pt}%
+\skilltag{Git}\par\vspace{5pt}
 
-\skillcat{Virtualisation \& Infra}{%
-  VMware ESXi,\ Hyper-V,\ VirtualBox,\\
-  KVM,\ High Availability,\ Ansible}
+{\small\textbf{Observability \& Security:}}\par\vspace{3pt}
+\noindent
+\skilltag{Monitoring}\hspace{2pt}%
+\skilltag{Prometheus}\hspace{2pt}%
+\skilltag{Grafana}\par\vspace{5pt}
 
-\skillcat{IoT \& Embedded}{ESP32,\ MQTT,\ CoAP,\\
-  LoRaWAN,\ Arduino,\ OpenCV,\ YOLO}
+{\small\textbf{Architecture \& Data:}}\par\vspace{3pt}
+\noindent
+\skilltag{Distributed Systems}\hspace{2pt}%
+\skilltag{Clean Architecture}\hspace{2pt}%
+\skilltag{Microservices}\hspace{2pt}%
+\skilltag{RESTful APIs}\hspace{2pt}%
+\skilltag{PostgreSQL}\hspace{2pt}%
+\skilltag{MySQL}\hspace{2pt}%
+\skilltag{MongoDB}\hspace{2pt}%
+\skilltag{Prisma ORM}\vspace{3pt}%
 
-\skillcat{Systems \& Networks}{Linux,\ TCP/IP,\ DNS,\\
-  SSH,\ Nginx,\ Networking,\ Sysadmin}
 
 % ── LANGUAGES ─────────────────────────────────────────────────────────
 \cvsection{Languages}
 
-{\small
-\textbf{Arabic:}\ Native\\[2pt]
-\textbf{French:}\ Fluent\\[2pt]
-\textbf{English:}\ Professional\\[2pt]
-\textbf{Spanish:}\ Beginner\\[2pt]
-}
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+  \item \textbf{Arabic:} Native
+  \item \textbf{French:} Fluent
+  \item \textbf{English:} Professional
+\end{itemize}
 
-\vfill
 
-% ── LINKS (bottom right) ─────────────────────────────────────────────
-\begin{center}
-  \vspace{4pt}
-  {\small\textcolor{accent}{\faLinkedin}\ \href{https://linkedin.com/in/yassin-najmi-ynj05}{\textcolor{graytext}{LinkedIn}}}%
-  \qquad
-  {\small\textcolor{accent}{\faGlobe}\ \href{https://portfolio-ynj.vercel.app}{\textcolor{graytext}{Website}}}
-\end{center}
 
 \end{minipage}
 

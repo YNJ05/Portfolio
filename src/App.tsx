@@ -48,7 +48,10 @@ import {
   Network,
   Wrench,
   Eye,
-  ArrowUp
+  ArrowUp,
+  Home,
+  User,
+  FolderGit2
 } from "lucide-react";
 import {
   info,
@@ -205,27 +208,33 @@ const getSkillIcon = (name: string) => {
 const getSchoolLogo = (schoolName: string) => {
   const name = schoolName.toLowerCase();
   if (name.includes("postes") || name.includes("inpt")) {
-    return "assets/inptlogo.svg";
+    return "assets/logos/inptlogo.svg";
   }
   if (name.includes("moulay abdellah") || name.includes("cpge")) {
-    return "assets/cpgelogo.png";
+    return "assets/logos/cpgelogo.png";
   }
   if (name.includes("technique")) {
-    return "assets/logo.png";
+    return "assets/logos/logo.png";
   }
   return null;
 };
 
 const getCertLogo = (certName: string) => {
   const name = certName.toLowerCase();
+  if (name.includes("cloud practitioner")) {
+    return "assets/certifications/AWS Certified Cloud Practitioner.png";
+  }
   if (name.includes("microservices")) {
-    return "assets/blob.png";
+    return "assets/certifications/AWS Academy Graduate - Cloud Architecting - Training Badge.png";
   }
   if (name.includes("architecting")) {
-    return "assets/AWS Academy Graduate — Cloud Architecting.png";
+    return "assets/certifications/AWS Academy Graduate — Cloud Architecting.png";
+  }
+  if (name.includes("architect associate")) {
+    return "assets/certifications/Oracle Cloud Infrastructure Certified Architect Associate.png";
   }
   if (name.includes("oracle") || name.includes("oci")) {
-    return "assets/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png";
+    return "assets/certifications/Oracle Cloud Infrastructure 2025 Certified Foundations Associate.png";
   }
   return null;
 };
@@ -242,6 +251,11 @@ export default function App() {
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
   const [showCVDropdown, setShowCVDropdown] = useState<boolean>(false);
   const cvDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Mobile Instagram-style center button hold/click state
+  const [isHoldingCenter, setIsHoldingCenter] = useState<boolean>(false);
+  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHoldTriggeredRef = useRef<boolean>(false);
 
   // Contact Form State
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
@@ -389,6 +403,46 @@ export default function App() {
     });
   };
 
+  const startCenterHold = () => {
+    isHoldTriggeredRef.current = false;
+    setIsHoldingCenter(true);
+    holdTimerRef.current = setTimeout(() => {
+      isHoldTriggeredRef.current = true;
+      setIsHoldingCenter(false);
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate(60);
+      }
+      setIsLightboxOpen(true);
+    }, 450);
+  };
+
+  const endCenterHold = (e?: React.SyntheticEvent) => {
+    setIsHoldingCenter(false);
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+    if (isHoldTriggeredRef.current) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      isHoldTriggeredRef.current = false;
+      return;
+    }
+    setActiveSection("home");
+    scrollTo("home");
+  };
+
+  const cancelCenterHold = () => {
+    setIsHoldingCenter(false);
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+    isHoldTriggeredRef.current = false;
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
@@ -443,7 +497,7 @@ export default function App() {
             className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/20 shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(true); }}
           >
-            <img src="assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
+            <img src="assets/images/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
               // fallback if local asset missing
               (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200";
             }} />
@@ -547,57 +601,10 @@ export default function App() {
             {lang === "fr" ? "Contactez-moi" : "Get in Touch"}
           </button>
 
-          {/* Hamburger Mobile */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-1 rounded-md"
-            aria-label="Open Menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
       </header>
 
-      {/* Mobile Navigation Drawer */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-24 left-4 right-4 z-40 p-6 rounded-3xl border md:hidden ${theme === "dark" ? "glass-panel-dark" : "glass-panel-light"
-              }`}
-          >
-            <div className="flex flex-col gap-4">
-              {(["home", "profile", "projects", "skills", "contact"] as const).map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollTo(section)}
-                  className={`py-2.5 text-sm font-bold text-center rounded-xl transition-all duration-300 ${activeSection === section
-                    ? theme === "dark" ? "bg-white/10 text-white" : "bg-neutral-900/10 text-neutral-900"
-                    : "text-neutral-500"
-                    }`}
-                >
-                  {section === "home" ? (lang === "fr" ? "Accueil" : "Home") :
-                    section === "profile" ? (lang === "fr" ? "Profil" : "Profile") :
-                      section === "projects" ? (lang === "fr" ? "Projets" : "Projects") :
-                        section === "skills" ? (lang === "fr" ? "Compétences" : "Skills") : "Contact"}
-                </button>
-              ))}
-
-              <button
-                onClick={() => scrollTo("contact")}
-                className={`mt-2 py-3 text-xs font-bold rounded-xl transition-all duration-300 w-full text-center ${theme === "dark" ? "bg-white text-black" : "bg-neutral-900 text-white"
-                  }`}
-              >
-                {lang === "fr" ? "Contactez-moi" : "Get in Touch"}
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <main className="transition-all duration-500 pt-8">
+      <main className="transition-all duration-500 pt-8 pb-24 md:pb-8">
 
         {/* ================= HERO SECTION ================= */}
         <section id="home" className="min-h-[92vh] flex items-center px-4 max-w-5xl mx-auto pt-24 pb-12">
@@ -989,7 +996,7 @@ export default function App() {
                   {/* INPT logo watermark for the OpenStack experience */}
                   {exp.org[lang].toLowerCase().includes("inpt") || exp.org[lang].toLowerCase().includes("postes") ? (
                     <img
-                      src="assets/inptlogo.svg"
+                      src="assets/logos/inptlogo.svg"
                       alt=""
                       aria-hidden="true"
                       className="absolute bottom-3 right-4 w-24 h-24 object-contain opacity-[0.06] pointer-events-none select-none"
@@ -1722,7 +1729,7 @@ export default function App() {
               </button>
 
               <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-sky-400 shadow-2xl relative">
-                <img src="assets/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
+                <img src="assets/images/image.png" alt={info.name} className="w-full h-full object-cover" onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200";
                 }} />
               </div>
@@ -1767,13 +1774,105 @@ export default function App() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center glass-panel-dark text-sky-400 hover:text-sky-300 hover:scale-110 active:scale-95 transition-all duration-300 shadow-2xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 cursor-pointer"
+            className="fixed bottom-24 md:bottom-8 right-5 md:right-8 z-50 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center glass-panel-dark text-sky-400 hover:text-sky-300 hover:scale-110 active:scale-95 transition-all duration-300 shadow-2xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 cursor-pointer"
             aria-label={lang === "fr" ? "Retour en haut" : "Back to top"}
           >
             <ArrowUp className="w-5 h-5" />
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* Mobile Floating Bottom Dock Navigation */}
+      <nav
+        aria-label="Mobile Navigation"
+        className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 md:hidden w-[calc(100%-36px)] max-w-[360px] h-14 px-1.5 rounded-full bg-[#0d0e12]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] flex items-center justify-between"
+      >
+        {[
+          { id: "profile", icon: User, label: { fr: "Profil", en: "Profile" }, match: ["profile", "experience"] },
+          { id: "skills", icon: Wrench, label: { fr: "Compétences", en: "Skills" }, match: ["skills", "certifications"] },
+          { id: "home", icon: Home, label: { fr: "Accueil (Maintenir pour la photo)", en: "Home (Hold for profile picture)" }, isCenter: true },
+          { id: "projects", icon: FolderGit2, label: { fr: "Projets", en: "Projects" }, match: ["projects"] },
+          { id: "contact", icon: Mail, label: { fr: "Contact", en: "Contact" }, match: ["contact"] },
+        ].map((tab) => {
+          const Icon = tab.icon;
+          const isActive = tab.match
+            ? tab.match.includes(activeSection)
+            : activeSection === tab.id;
+
+          if (tab.isCenter) {
+            return (
+              <div key={tab.id} className="relative flex-1 h-full flex items-center justify-center">
+                {/* Hold hint */}
+                <AnimatePresence>
+                  {isHoldingCenter && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.85 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 5, scale: 0.85 }}
+                      className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 text-[10px] font-semibold bg-neutral-900/95 border border-white/15 text-white rounded-full shadow-lg pointer-events-none z-20 backdrop-blur-md"
+                    >
+                      {lang === "fr" ? "Photo de profil" : "Profile photo"}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {isActive && (
+                  <motion.div
+                    layoutId="mobileActiveTab"
+                    className="absolute inset-x-1.5 inset-y-1.5 rounded-full bg-white/10 border border-white/15 shadow-sm -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+
+                <button
+                  onMouseDown={startCenterHold}
+                  onMouseUp={endCenterHold}
+                  onMouseLeave={cancelCenterHold}
+                  onTouchStart={startCenterHold}
+                  onTouchEnd={endCenterHold}
+                  onTouchCancel={cancelCenterHold}
+                  aria-label={tab.label[lang]}
+                  className={`relative w-full h-full flex items-center justify-center cursor-pointer select-none transition-transform duration-200 ${
+                    isHoldingCenter ? "scale-90" : "active:scale-95"
+                  }`}
+                >
+                  <Icon
+                    className={`w-5 h-5 transition-colors duration-200 ${
+                      isActive ? "text-sky-400" : "text-neutral-400 hover:text-white"
+                    }`}
+                  />
+                </button>
+              </div>
+            );
+          }
+
+          return (
+            <button
+              key={tab.id}
+              onClick={() => {
+                setActiveSection(tab.id);
+                scrollTo(tab.id);
+              }}
+              aria-label={tab.label[lang]}
+              className="relative flex-1 h-full flex items-center justify-center cursor-pointer select-none active:scale-95 transition-transform duration-200"
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="mobileActiveTab"
+                  className="absolute inset-x-1.5 inset-y-1.5 rounded-full bg-white/10 border border-white/15 shadow-sm -z-10"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+
+              <Icon
+                className={`w-5 h-5 transition-colors duration-200 ${
+                  isActive ? "text-sky-400" : "text-neutral-400 hover:text-white"
+                }`}
+              />
+            </button>
+          );
+        })}
+      </nav>
 
     </div>
   );
